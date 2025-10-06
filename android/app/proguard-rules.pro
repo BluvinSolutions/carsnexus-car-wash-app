@@ -1,0 +1,4 @@
+-dontwarn com.stripe.android.pushProvisioning.**
+-dontwarn proguard.annotation.Keep
+-dontwarn proguard.annotation.KeepClassMembers
+-dontwarn com.razorpay.**
