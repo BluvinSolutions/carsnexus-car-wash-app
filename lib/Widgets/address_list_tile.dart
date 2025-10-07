@@ -1,6 +1,6 @@
-import 'package:carq_user/HomeAndOrder/model/address_list_response.dart';
-import 'package:carq_user/Theme/colors.dart';
-import 'package:carq_user/Theme/theme.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/address_list_response.dart';
+import 'package:carsnexus_user/Theme/colors.dart';
+import 'package:carsnexus_user/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class AddressListTile extends StatefulWidget {

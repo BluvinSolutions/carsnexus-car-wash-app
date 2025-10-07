@@ -1,10 +1,10 @@
-import 'package:carq_user/Localization/localization_constant.dart';
-import 'package:carq_user/Profile/models/booking_response.dart';
-import 'package:carq_user/Profile/my_booking_details_screen.dart';
-import 'package:carq_user/Theme/colors.dart';
-import 'package:carq_user/Theme/theme.dart';
-import 'package:carq_user/Widgets/constant_widget.dart';
-import 'package:carq_user/lang_const.dart';
+import 'package:carsnexus_user/Localization/localization_constant.dart';
+import 'package:carsnexus_user/Profile/models/booking_response.dart';
+import 'package:carsnexus_user/Profile/my_booking_details_screen.dart';
+import 'package:carsnexus_user/Theme/colors.dart';
+import 'package:carsnexus_user/Theme/theme.dart';
+import 'package:carsnexus_user/Widgets/constant_widget.dart';
+import 'package:carsnexus_user/lang_const.dart';
 import 'package:flutter/material.dart';
 
 class BookingItems extends StatelessWidget {

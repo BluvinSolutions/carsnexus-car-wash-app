@@ -1,9 +1,9 @@
-import 'package:carq_user/Authentication/forgot_password_screen.dart';
-import 'package:carq_user/Authentication/login_screen.dart';
-import 'package:carq_user/Authentication/otp_verification_screen.dart';
-import 'package:carq_user/Authentication/set_new_password_screen.dart';
-import 'package:carq_user/Authentication/sign_up_screen.dart';
-import 'package:carq_user/HomeAndOrder/home_screen.dart';
+import 'package:carsnexus_user/Authentication/forgot_password_screen.dart';
+import 'package:carsnexus_user/Authentication/login_screen.dart';
+import 'package:carsnexus_user/Authentication/otp_verification_screen.dart';
+import 'package:carsnexus_user/Authentication/set_new_password_screen.dart';
+import 'package:carsnexus_user/Authentication/sign_up_screen.dart';
+import 'package:carsnexus_user/HomeAndOrder/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class Routes {

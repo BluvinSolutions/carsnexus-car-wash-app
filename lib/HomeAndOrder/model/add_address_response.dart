@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:carq_user/HomeAndOrder/model/address_list_response.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/address_list_response.dart';
 
 AddAddressResponse addAddressResponseFromJson(String str) =>
     AddAddressResponse.fromJson(json.decode(str));

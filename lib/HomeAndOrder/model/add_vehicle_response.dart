@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:carq_user/HomeAndOrder/model/vehical_response.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/vehical_response.dart';
 
 VehicalAddResponse vehicalAddResponseFromJson(String str) =>
     VehicalAddResponse.fromJson(json.decode(str));

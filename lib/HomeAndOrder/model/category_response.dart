@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:carq_user/HomeAndOrder/model/home_screen_response.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/home_screen_response.dart';
 
 CategoryResponse categoryResponseFromJson(String str) =>
     CategoryResponse.fromJson(json.decode(str));

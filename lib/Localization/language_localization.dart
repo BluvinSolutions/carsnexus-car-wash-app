@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:carq_user/Localization/localization_constant.dart';
+import 'package:carsnexus_user/Localization/localization_constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 

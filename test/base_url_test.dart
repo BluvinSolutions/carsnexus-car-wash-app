@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:carq_user/Network/api_connection_test_response_model.dart';
-import 'package:carq_user/Network/api_service.dart';
-import 'package:carq_user/Network/apis.dart';
-import 'package:carq_user/Network/retrofit.dart';
+import 'package:carsnexus_user/Network/api_connection_test_response_model.dart';
+import 'package:carsnexus_user/Network/api_service.dart';
+import 'package:carsnexus_user/Network/apis.dart';
+import 'package:carsnexus_user/Network/retrofit.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

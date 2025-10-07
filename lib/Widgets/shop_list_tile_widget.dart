@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carq_user/HomeAndOrder/model/home_screen_response.dart';
-import 'package:carq_user/HomeAndOrder/shop_details_screen.dart';
-import 'package:carq_user/Theme/colors.dart';
-import 'package:carq_user/Theme/theme.dart';
-import 'package:carq_user/Widgets/constant_widget.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/home_screen_response.dart';
+import 'package:carsnexus_user/HomeAndOrder/shop_details_screen.dart';
+import 'package:carsnexus_user/Theme/colors.dart';
+import 'package:carsnexus_user/Theme/theme.dart';
+import 'package:carsnexus_user/Widgets/constant_widget.dart';
 import 'package:flutter/material.dart';
 
 class ShopListTileWidget extends StatelessWidget {

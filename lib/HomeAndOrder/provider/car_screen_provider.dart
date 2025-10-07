@@ -1,11 +1,11 @@
-import 'package:carq_user/HomeAndOrder/model/add_vehicle_response.dart';
-import 'package:carq_user/HomeAndOrder/model/vehical_response.dart';
-import 'package:carq_user/HomeAndOrder/model/vehicle_brand_response.dart';
-import 'package:carq_user/HomeAndOrder/model/vehicle_model_response.dart';
-import 'package:carq_user/Network/api_service.dart';
-import 'package:carq_user/Network/base_model.dart';
-import 'package:carq_user/Network/retrofit.dart';
-import 'package:carq_user/Network/server_error.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/add_vehicle_response.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/vehical_response.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/vehicle_brand_response.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/vehicle_model_response.dart';
+import 'package:carsnexus_user/Network/api_service.dart';
+import 'package:carsnexus_user/Network/base_model.dart';
+import 'package:carsnexus_user/Network/retrofit.dart';
+import 'package:carsnexus_user/Network/server_error.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

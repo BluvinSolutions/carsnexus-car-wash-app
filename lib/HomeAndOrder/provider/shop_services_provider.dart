@@ -1,13 +1,13 @@
-import 'package:carq_user/HomeAndOrder/model/book_slot_response.dart';
-import 'package:carq_user/HomeAndOrder/model/category_response.dart';
-import 'package:carq_user/HomeAndOrder/model/home_screen_response.dart';
-import 'package:carq_user/HomeAndOrder/model/shop_count_response.dart';
-import 'package:carq_user/HomeAndOrder/model/shop_details_response.dart';
-import 'package:carq_user/HomeAndOrder/model/shop_list_response.dart';
-import 'package:carq_user/Network/api_service.dart';
-import 'package:carq_user/Network/base_model.dart';
-import 'package:carq_user/Network/retrofit.dart';
-import 'package:carq_user/Network/server_error.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/book_slot_response.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/category_response.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/home_screen_response.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/shop_count_response.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/shop_details_response.dart';
+import 'package:carsnexus_user/HomeAndOrder/model/shop_list_response.dart';
+import 'package:carsnexus_user/Network/api_service.dart';
+import 'package:carsnexus_user/Network/base_model.dart';
+import 'package:carsnexus_user/Network/retrofit.dart';
+import 'package:carsnexus_user/Network/server_error.dart';
 import 'package:flutter/foundation.dart';
 
 class ShopServicesProvider extends ChangeNotifier {

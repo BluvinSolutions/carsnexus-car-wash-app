@@ -1,6 +1,6 @@
-import 'package:carq_user/Constants/keys_values.dart';
-import 'package:carq_user/Constants/preference_utility.dart';
-import 'package:carq_user/Localization/language_localization.dart';
+import 'package:carsnexus_user/Constants/keys_values.dart';
+import 'package:carsnexus_user/Constants/preference_utility.dart';
+import 'package:carsnexus_user/Localization/language_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
