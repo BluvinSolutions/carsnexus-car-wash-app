@@ -248,7 +248,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           }
                         },
                         style: AppButtonStyle.filledMedium.copyWith(
-                          minimumSize: MaterialStatePropertyAll(
+                          minimumSize: WidgetStatePropertyAll(
                             Size(MediaQuery.of(context).size.width, 50),
                           ),
                         ),
@@ -403,7 +403,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 }
                               },
                         style: AppButtonStyle.filledMedium.copyWith(
-                          minimumSize: MaterialStatePropertyAll(
+                          minimumSize: WidgetStatePropertyAll(
                             Size(MediaQuery.of(context).size.width, 50),
                           ),
                         ),

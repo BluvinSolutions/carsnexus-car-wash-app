@@ -251,7 +251,7 @@ class _AddCarScreenState extends State<AddCarScreen> {
                   // Navigator.pop(context);
                 },
                 style: AppButtonStyle.filledMedium.copyWith(
-                  minimumSize: MaterialStatePropertyAll(
+                  minimumSize: WidgetStatePropertyAll(
                     Size(MediaQuery.of(context).size.width, 50),
                   ),
                 ),

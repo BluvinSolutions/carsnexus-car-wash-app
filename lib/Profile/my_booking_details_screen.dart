@@ -744,7 +744,7 @@ class _MyBookingDetailScreenState extends State<MyBookingDetailScreen> {
                                   profileProvider.review(body);
                                 },
                                 style: AppButtonStyle.filledMedium.copyWith(
-                                  minimumSize: MaterialStatePropertyAll(
+                                  minimumSize: WidgetStatePropertyAll(
                                     Size(MediaQuery.of(context).size.width, 50),
                                   ),
                                 ),

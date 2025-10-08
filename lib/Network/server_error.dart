@@ -44,8 +44,9 @@ class ServerError implements Exception {
       if (kDebugMode) print('Request was cancelled');
       return Fluttertoast.showToast(msg: 'Request was cancelled');
     } else if (error.type == DioExceptionType.connectionError) {
-      if (kDebugMode)
+      if (kDebugMode) {
         print('Connection failed. Please check internet connection');
+      }
       return Fluttertoast.showToast(
           msg: 'Connection failed. Please check internet connection');
     } else if (error.type == DioExceptionType.connectionTimeout) {

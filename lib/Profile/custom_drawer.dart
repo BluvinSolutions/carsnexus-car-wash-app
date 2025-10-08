@@ -371,9 +371,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           String languageCode = SharedPreferenceUtil.getString(
                               PrefKey.currentLanguageCode);
                           await SharedPreferenceUtil.clear();
-                          if (context.mounted)
+                          if (context.mounted) {
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 Routes.login, (route) => false);
+                          }
                           SharedPreferenceUtil.putString(
                               PrefKey.currentLanguageCode, languageCode);
                         },

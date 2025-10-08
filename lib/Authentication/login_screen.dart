@@ -191,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             return;
                           },
                           style: AppButtonStyle.filledMedium.copyWith(
-                            minimumSize: MaterialStatePropertyAll(
+                            minimumSize: WidgetStatePropertyAll(
                               Size(
                                 MediaQuery.of(context).size.width,
                                 50,

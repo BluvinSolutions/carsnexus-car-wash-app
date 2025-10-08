@@ -121,7 +121,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     }
                   },
                   style: AppButtonStyle.filledMedium.copyWith(
-                    minimumSize: MaterialStatePropertyAll(
+                    minimumSize: WidgetStatePropertyAll(
                       Size(
                         MediaQuery.of(context).size.width,
                         50,

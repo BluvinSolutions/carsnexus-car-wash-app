@@ -45,9 +45,10 @@ class AuthProvider extends ChangeNotifier {
           'type': '3AppUsers',
           'otp': response.data!.otp,
         };
-        if (context.mounted)
+        if (context.mounted) {
           Navigator.of(context)
               .pushNamed(Routes.otpVerification, arguments: body);
+        }
       }
       Fluttertoast.showToast(msg: response.msg!);
       loginLoading = false;
@@ -172,9 +173,10 @@ class AuthProvider extends ChangeNotifier {
             'type': '3AppUsers',
             'otp': response.data!.otp,
           };
-          if (context.mounted)
+          if (context.mounted) {
             Navigator.of(context)
                 .pushNamed(Routes.otpVerification, arguments: body);
+          }
         }
       }
       Fluttertoast.showToast(msg: response.msg!);
@@ -199,9 +201,10 @@ class AuthProvider extends ChangeNotifier {
       response = await RestClient(RetroApi().dioData()).getOTP(body);
       if (response.success == true) {
         if (isNavigation == true) {
-          if (context.mounted)
+          if (context.mounted) {
             Navigator.of(context)
                 .pushNamed(Routes.otpVerification, arguments: body);
+          }
         }
       }
       Fluttertoast.showToast(msg: response.msg!);
@@ -228,8 +231,9 @@ class AuthProvider extends ChangeNotifier {
         if (body['isNewPassword'] == true) {
           if (context.mounted) Navigator.of(context).pushNamed(Routes.login);
         } else {
-          if (context.mounted)
+          if (context.mounted) {
             Navigator.of(context).pushNamed(Routes.newPassword);
+          }
         }
       }
       Fluttertoast.showToast(msg: response.msg!);

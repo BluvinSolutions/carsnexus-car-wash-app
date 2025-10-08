@@ -192,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                         ),
                         style: ButtonStyle(
-                          padding: MaterialStateProperty.all(EdgeInsets.zero),
+                          padding: WidgetStateProperty.all(EdgeInsets.zero),
                         ),
                       ),
                     ),
@@ -421,7 +421,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                         ),
                         style: ButtonStyle(
-                          padding: MaterialStateProperty.all(EdgeInsets.zero),
+                          padding: WidgetStateProperty.all(EdgeInsets.zero),
                         ),
                       ),
                     ),

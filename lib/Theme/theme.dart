@@ -194,18 +194,18 @@ class AppBorderRadius {
 class AppButtonStyle {
   /// ButtonStyle for a filled button with large text
   static ButtonStyle filledLarge = ButtonStyle(
-    backgroundColor: MaterialStateProperty.all<Color>(AppColors.primary),
-    foregroundColor: MaterialStateProperty.all<Color>(AppColors.white),
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    backgroundColor: WidgetStateProperty.all<Color>(AppColors.primary),
+    foregroundColor: WidgetStateProperty.all<Color>(AppColors.white),
+    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
     ),
-    elevation: MaterialStateProperty.all<double>(0),
-    textStyle: MaterialStateProperty.all<TextStyle>(
+    elevation: WidgetStateProperty.all<double>(0),
+    textStyle: WidgetStateProperty.all<TextStyle>(
       Typographies.textTheme.titleMedium!.copyWith(color: AppColors.white),
     ),
-    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+    padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
       const EdgeInsets.symmetric(
         vertical: 10,
         horizontal: 24,
@@ -215,18 +215,18 @@ class AppButtonStyle {
 
   /// ButtonStyle for filled medium buttons
   static ButtonStyle filledMedium = ButtonStyle(
-    backgroundColor: MaterialStateProperty.all<Color>(AppColors.primary),
-    foregroundColor: MaterialStateProperty.all<Color>(AppColors.white),
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    backgroundColor: WidgetStateProperty.all<Color>(AppColors.primary),
+    foregroundColor: WidgetStateProperty.all<Color>(AppColors.white),
+    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
     ),
-    elevation: MaterialStateProperty.all<double>(0),
-    textStyle: MaterialStateProperty.all<TextStyle>(
+    elevation: WidgetStateProperty.all<double>(0),
+    textStyle: WidgetStateProperty.all<TextStyle>(
       Typographies.textTheme.bodyMedium!.copyWith(color: AppColors.white),
     ),
-    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+    padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
       const EdgeInsets.symmetric(
         vertical: 8,
         horizontal: 24,
@@ -236,18 +236,18 @@ class AppButtonStyle {
 
   /// ButtonStyle for filled small buttons
   static ButtonStyle filledSmall = ButtonStyle(
-    backgroundColor: MaterialStateProperty.all<Color>(AppColors.primary),
-    foregroundColor: MaterialStateProperty.all<Color>(AppColors.white),
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    backgroundColor: WidgetStateProperty.all<Color>(AppColors.primary),
+    foregroundColor: WidgetStateProperty.all<Color>(AppColors.white),
+    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
       RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
     ),
-    elevation: MaterialStateProperty.all<double>(0),
-    textStyle: MaterialStateProperty.all<TextStyle>(
+    elevation: WidgetStateProperty.all<double>(0),
+    textStyle: WidgetStateProperty.all<TextStyle>(
       Typographies.textTheme.bodySmall!.copyWith(color: AppColors.white),
     ),
-    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+    padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
       const EdgeInsets.symmetric(
         vertical: 8,
         horizontal: 24,
@@ -257,19 +257,19 @@ class AppButtonStyle {
 
   /// ButtonStyle for outlined large buttons
   static ButtonStyle outlinedLarge = ButtonStyle(
-    backgroundColor: MaterialStateProperty.all<Color>(AppColors.transparent),
-    foregroundColor: MaterialStateProperty.all<Color>(AppColors.primary),
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    backgroundColor: WidgetStateProperty.all<Color>(AppColors.transparent),
+    foregroundColor: WidgetStateProperty.all<Color>(AppColors.primary),
+    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
       const RoundedRectangleBorder(
         borderRadius: AppBorderRadius.k08,
         side: BorderSide(color: AppColors.stroke),
       ),
     ),
-    elevation: MaterialStateProperty.all<double>(0),
-    textStyle: MaterialStateProperty.all<TextStyle>(
+    elevation: WidgetStateProperty.all<double>(0),
+    textStyle: WidgetStateProperty.all<TextStyle>(
       Typographies.textTheme.titleMedium!.copyWith(color: AppColors.primary),
     ),
-    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+    padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
       const EdgeInsets.symmetric(
         vertical: 10,
         horizontal: 24,
@@ -279,19 +279,19 @@ class AppButtonStyle {
 
   /// ButtonStyle for outlined medium buttons
   static ButtonStyle outlinedMedium = ButtonStyle(
-    backgroundColor: MaterialStateProperty.all<Color>(AppColors.transparent),
-    foregroundColor: MaterialStateProperty.all<Color>(AppColors.primary),
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    backgroundColor: WidgetStateProperty.all<Color>(AppColors.transparent),
+    foregroundColor: WidgetStateProperty.all<Color>(AppColors.primary),
+    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
       const RoundedRectangleBorder(
         borderRadius: AppBorderRadius.k08,
         side: BorderSide(color: AppColors.stroke),
       ),
     ),
-    elevation: MaterialStateProperty.all<double>(0),
-    textStyle: MaterialStateProperty.all<TextStyle>(
+    elevation: WidgetStateProperty.all<double>(0),
+    textStyle: WidgetStateProperty.all<TextStyle>(
       Typographies.textTheme.bodyMedium!.copyWith(color: AppColors.primary),
     ),
-    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+    padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
       const EdgeInsets.symmetric(
         vertical: 8,
         horizontal: 24,
@@ -301,19 +301,19 @@ class AppButtonStyle {
 
   /// ButtonStyle for outlined small buttons
   static ButtonStyle outlinedSmall = ButtonStyle(
-    backgroundColor: MaterialStateProperty.all<Color>(AppColors.transparent),
-    foregroundColor: MaterialStateProperty.all<Color>(AppColors.primary),
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    backgroundColor: WidgetStateProperty.all<Color>(AppColors.transparent),
+    foregroundColor: WidgetStateProperty.all<Color>(AppColors.primary),
+    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
       const RoundedRectangleBorder(
         borderRadius: AppBorderRadius.k08,
         side: BorderSide(color: AppColors.stroke),
       ),
     ),
-    elevation: MaterialStateProperty.all<double>(0),
-    textStyle: MaterialStateProperty.all<TextStyle>(
+    elevation: WidgetStateProperty.all<double>(0),
+    textStyle: WidgetStateProperty.all<TextStyle>(
       Typographies.textTheme.bodySmall!.copyWith(color: AppColors.primary),
     ),
-    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+    padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
       const EdgeInsets.symmetric(
         vertical: 8,
         horizontal: 24,
@@ -393,7 +393,6 @@ class CustomTheme {
       secondary: AppColors.secondary,
       error: AppColors.error,
       surface: AppColors.surface,
-      background: AppColors.background,
     ),
     drawerTheme: const DrawerThemeData(
       elevation: 0,
@@ -407,8 +406,8 @@ class CustomTheme {
       style: AppButtonStyle.textSmall,
     ),
     switchTheme: SwitchThemeData(
-      thumbColor: MaterialStateProperty.all<Color>(AppColors.white),
-      trackColor: MaterialStateProperty.all<Color>(AppColors.primary),
+      thumbColor: WidgetStateProperty.all<Color>(AppColors.white),
+      trackColor: WidgetStateProperty.all<Color>(AppColors.primary),
     ),
     dropdownMenuTheme: DropdownMenuThemeData(
       textStyle: Typographies.textTheme.bodyMedium!,
@@ -451,7 +450,7 @@ class CustomTheme {
       suffixIconColor: AppColors.icon,
     ),
     radioTheme: RadioThemeData(
-      fillColor: MaterialStateProperty.all<Color>(AppColors.primary),
+      fillColor: WidgetStateProperty.all<Color>(AppColors.primary),
     ),
     tabBarTheme: TabBarThemeData(
       labelColor: AppColors.white,
@@ -492,11 +491,11 @@ class CustomTheme {
     ),
     checkboxTheme: CheckboxThemeData(
       shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.k04),
-      checkColor: MaterialStateProperty.all(AppColors.white),
-      fillColor: MaterialStateProperty.all(AppColors.primary),
+      checkColor: WidgetStateProperty.all(AppColors.white),
+      fillColor: WidgetStateProperty.all(AppColors.primary),
     ),
     appBarTheme: AppBarTheme(
-      color: AppColors.transparent,
+      backgroundColor: AppColors.transparent,
       elevation: 0,
       centerTitle: true,
       iconTheme: const IconThemeData(

@@ -188,7 +188,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   homeScreenProvider.addAddressInList(context, body);
                 },
                 style: AppButtonStyle.filledMedium.copyWith(
-                  minimumSize: MaterialStatePropertyAll(
+                  minimumSize: WidgetStatePropertyAll(
                     Size(MediaQuery.of(context).size.width, 50),
                   ),
                 ),

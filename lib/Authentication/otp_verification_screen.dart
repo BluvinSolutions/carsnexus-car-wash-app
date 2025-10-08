@@ -123,7 +123,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     }
                   },
                   style: AppButtonStyle.filledMedium.copyWith(
-                    minimumSize: MaterialStatePropertyAll(
+                    minimumSize: WidgetStatePropertyAll(
                       Size(
                         MediaQuery.of(context).size.width,
                         50,
