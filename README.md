@@ -1,4 +1,4 @@
-CarQ User Flutter App
+Car nexus User Flutter App
 
 flutter 3.16.4
 

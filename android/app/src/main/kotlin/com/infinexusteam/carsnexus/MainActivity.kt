@@ -1,4 +1,4 @@
-package com.infinexusteam.carquserapp
+package com.infinexusteam.carsnexus
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity
