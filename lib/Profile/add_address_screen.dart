@@ -129,6 +129,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
+                        dropdownColor: AppColors.white,
                         icon: const Icon(Icons.keyboard_arrow_down_sharp),
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               color: AppColors.bodyText,
