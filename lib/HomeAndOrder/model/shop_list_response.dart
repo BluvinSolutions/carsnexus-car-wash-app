@@ -1,4 +1,4 @@
-import 'package:carsnexus_user/HomeAndOrder/model/home_screen_response.dart';
+import 'package:voyzo/HomeAndOrder/model/home_screen_response.dart';
 
 class ShopListResponse {
   dynamic msg;

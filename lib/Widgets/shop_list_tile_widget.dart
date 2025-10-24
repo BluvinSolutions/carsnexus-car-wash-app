@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carsnexus_user/HomeAndOrder/model/home_screen_response.dart';
-import 'package:carsnexus_user/HomeAndOrder/shop_details_screen.dart';
-import 'package:carsnexus_user/Theme/colors.dart';
-import 'package:carsnexus_user/Theme/theme.dart';
-import 'package:carsnexus_user/Widgets/constant_widget.dart';
+import 'package:voyzo/HomeAndOrder/model/home_screen_response.dart';
+import 'package:voyzo/HomeAndOrder/shop_details_screen.dart';
+import 'package:voyzo/Theme/colors.dart';
+import 'package:voyzo/Theme/theme.dart';
+import 'package:voyzo/Widgets/constant_widget.dart';
 import 'package:flutter/material.dart';
 
 class ShopListTileWidget extends StatelessWidget {

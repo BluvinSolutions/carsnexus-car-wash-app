@@ -1,4 +1,4 @@
-Car nexus User Flutter App
+Voyzo App
 
 flutter 3.16.4
 

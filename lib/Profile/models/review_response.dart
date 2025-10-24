@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:carsnexus_user/Profile/models/booking_details_response.dart';
+import 'package:voyzo/Profile/models/booking_details_response.dart';
 
 ReviewResponse reviewFromJson(String str) =>
     ReviewResponse.fromJson(json.decode(str));

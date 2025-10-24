@@ -1,18 +1,18 @@
 import 'dart:io';
 
-import 'package:carsnexus_user/Authentication/login_screen.dart';
-import 'package:carsnexus_user/Authentication/provider/auth_provider.dart';
-import 'package:carsnexus_user/Constants/keys_values.dart';
-import 'package:carsnexus_user/Constants/preference_utility.dart';
-import 'package:carsnexus_user/HomeAndOrder/provider/car_screen_provider.dart';
-import 'package:carsnexus_user/HomeAndOrder/provider/home_screen_provider.dart';
-import 'package:carsnexus_user/HomeAndOrder/provider/shop_services_provider.dart';
-import 'package:carsnexus_user/Localization/language_localization.dart';
-import 'package:carsnexus_user/Localization/localization_constant.dart';
-import 'package:carsnexus_user/Profile/providers/payment_provider.dart';
-import 'package:carsnexus_user/Profile/providers/profile_provider.dart';
-import 'package:carsnexus_user/Routes/routes.dart';
-import 'package:carsnexus_user/Theme/theme.dart';
+import 'package:voyzo/Authentication/login_screen.dart';
+import 'package:voyzo/Authentication/provider/auth_provider.dart';
+import 'package:voyzo/Constants/keys_values.dart';
+import 'package:voyzo/Constants/preference_utility.dart';
+import 'package:voyzo/HomeAndOrder/provider/car_screen_provider.dart';
+import 'package:voyzo/HomeAndOrder/provider/home_screen_provider.dart';
+import 'package:voyzo/HomeAndOrder/provider/shop_services_provider.dart';
+import 'package:voyzo/Localization/language_localization.dart';
+import 'package:voyzo/Localization/localization_constant.dart';
+import 'package:voyzo/Profile/providers/payment_provider.dart';
+import 'package:voyzo/Profile/providers/profile_provider.dart';
+import 'package:voyzo/Routes/routes.dart';
+import 'package:voyzo/Theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
@@ -102,7 +102,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ],
         child: MaterialApp(
-          title: 'Car-Q',
+          title: 'Voyzo',
           debugShowCheckedModeBanner: false,
           theme: CustomTheme.lightTheme,
           home: const LoginScreen(),

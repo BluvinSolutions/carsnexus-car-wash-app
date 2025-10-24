@@ -1,10 +1,10 @@
-import 'package:carsnexus_user/HomeAndOrder/provider/home_screen_provider.dart';
-import 'package:carsnexus_user/Localization/localization_constant.dart';
-import 'package:carsnexus_user/Theme/colors.dart';
-import 'package:carsnexus_user/Theme/theme.dart';
-import 'package:carsnexus_user/Widgets/app_bar_back_icon.dart';
-import 'package:carsnexus_user/Widgets/constant_widget.dart';
-import 'package:carsnexus_user/lang_const.dart';
+import 'package:voyzo/HomeAndOrder/provider/home_screen_provider.dart';
+import 'package:voyzo/Localization/localization_constant.dart';
+import 'package:voyzo/Theme/colors.dart';
+import 'package:voyzo/Theme/theme.dart';
+import 'package:voyzo/Widgets/app_bar_back_icon.dart';
+import 'package:voyzo/Widgets/constant_widget.dart';
+import 'package:voyzo/lang_const.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

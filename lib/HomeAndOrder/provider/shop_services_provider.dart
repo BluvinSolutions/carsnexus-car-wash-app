@@ -1,13 +1,13 @@
-import 'package:carsnexus_user/HomeAndOrder/model/book_slot_response.dart';
-import 'package:carsnexus_user/HomeAndOrder/model/category_response.dart';
-import 'package:carsnexus_user/HomeAndOrder/model/home_screen_response.dart';
-import 'package:carsnexus_user/HomeAndOrder/model/shop_count_response.dart';
-import 'package:carsnexus_user/HomeAndOrder/model/shop_details_response.dart';
-import 'package:carsnexus_user/HomeAndOrder/model/shop_list_response.dart';
-import 'package:carsnexus_user/Network/api_service.dart';
-import 'package:carsnexus_user/Network/base_model.dart';
-import 'package:carsnexus_user/Network/retrofit.dart';
-import 'package:carsnexus_user/Network/server_error.dart';
+import 'package:voyzo/HomeAndOrder/model/book_slot_response.dart';
+import 'package:voyzo/HomeAndOrder/model/category_response.dart';
+import 'package:voyzo/HomeAndOrder/model/home_screen_response.dart';
+import 'package:voyzo/HomeAndOrder/model/shop_count_response.dart';
+import 'package:voyzo/HomeAndOrder/model/shop_details_response.dart';
+import 'package:voyzo/HomeAndOrder/model/shop_list_response.dart';
+import 'package:voyzo/Network/api_service.dart';
+import 'package:voyzo/Network/base_model.dart';
+import 'package:voyzo/Network/retrofit.dart';
+import 'package:voyzo/Network/server_error.dart';
 import 'package:flutter/foundation.dart';
 
 class ShopServicesProvider extends ChangeNotifier {

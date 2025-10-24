@@ -1,15 +1,15 @@
 import 'dart:convert';
 
-import 'package:carsnexus_user/Constants/keys_values.dart';
-import 'package:carsnexus_user/Constants/preference_utility.dart';
-import 'package:carsnexus_user/HomeAndOrder/home_screen.dart';
-import 'package:carsnexus_user/Network/api_service.dart';
-import 'package:carsnexus_user/Network/base_model.dart';
-import 'package:carsnexus_user/Network/retrofit.dart';
-import 'package:carsnexus_user/Network/server_error.dart';
-import 'package:carsnexus_user/Profile/models/booking_payment_response.dart';
-import 'package:carsnexus_user/Profile/models/payment_keys_response.dart';
-import 'package:carsnexus_user/Theme/colors.dart';
+import 'package:voyzo/Constants/keys_values.dart';
+import 'package:voyzo/Constants/preference_utility.dart';
+import 'package:voyzo/HomeAndOrder/home_screen.dart';
+import 'package:voyzo/Network/api_service.dart';
+import 'package:voyzo/Network/base_model.dart';
+import 'package:voyzo/Network/retrofit.dart';
+import 'package:voyzo/Network/server_error.dart';
+import 'package:voyzo/Profile/models/booking_payment_response.dart';
+import 'package:voyzo/Profile/models/payment_keys_response.dart';
+import 'package:voyzo/Theme/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -89,7 +89,7 @@ class PaymentProvider extends ChangeNotifier {
               paymentIntentClientSecret: paymentIntent['client_secret'],
               //Gotten from payment intent
               style: ThemeMode.dark,
-              merchantDisplayName: 'CarQ',
+              merchantDisplayName: 'Voyzo',
             ),
           )
           .then((value) {});

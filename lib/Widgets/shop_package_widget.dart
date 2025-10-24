@@ -1,6 +1,6 @@
-import 'package:carsnexus_user/HomeAndOrder/model/shop_details_response.dart';
-import 'package:carsnexus_user/Theme/colors.dart';
-import 'package:carsnexus_user/Theme/theme.dart';
+import 'package:voyzo/HomeAndOrder/model/shop_details_response.dart';
+import 'package:voyzo/Theme/colors.dart';
+import 'package:voyzo/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class ShopPackageWidget extends StatelessWidget {

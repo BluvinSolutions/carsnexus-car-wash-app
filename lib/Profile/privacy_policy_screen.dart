@@ -1,7 +1,7 @@
-import 'package:carsnexus_user/Profile/providers/profile_provider.dart';
-import 'package:carsnexus_user/Theme/colors.dart';
-import 'package:carsnexus_user/Theme/theme.dart';
-import 'package:carsnexus_user/Widgets/app_bar_back_icon.dart';
+import 'package:voyzo/Profile/providers/profile_provider.dart';
+import 'package:voyzo/Theme/colors.dart';
+import 'package:voyzo/Theme/theme.dart';
+import 'package:voyzo/Widgets/app_bar_back_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';

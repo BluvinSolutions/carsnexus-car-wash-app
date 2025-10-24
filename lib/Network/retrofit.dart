@@ -1,5 +1,5 @@
-import 'package:carsnexus_user/Constants/keys_values.dart';
-import 'package:carsnexus_user/Constants/preference_utility.dart';
+import 'package:voyzo/Constants/keys_values.dart';
+import 'package:voyzo/Constants/preference_utility.dart';
 // ignore: depend_on_referenced_packages
 import 'package:dio/dio.dart';
 

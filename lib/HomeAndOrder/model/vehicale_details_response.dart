@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:carsnexus_user/HomeAndOrder/model/vehical_response.dart';
+import 'package:voyzo/HomeAndOrder/model/vehical_response.dart';
 
 OneVehicleResponse oneVehicleResponseFromJson(String str) =>
     OneVehicleResponse.fromJson(json.decode(str));

@@ -4,7 +4,7 @@ class ApiKeys {
   // flutter pub run build_runner build --delete-conflicting-outputs
   // to generate the api_services.g.dart file
   // Every time you change the base url, you need to run the above command
-  static const String siteUrl = "https://carsnexus.com/api/user/";
+  static const String siteUrl = "https://voyzo.in/api/user/";
 
   // API CONNECTION CHECK
   static const String apiConnectionTest = "apiConnectionTest";
