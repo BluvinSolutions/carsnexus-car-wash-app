@@ -17,13 +17,12 @@ class FaqScreen extends StatefulWidget {
 
 class _FaqScreenState extends State<FaqScreen> {
   late ProfileProvider profileProvider;
-  bool _maxLines = false;
 
   @override
   void initState() {
     Future.delayed(
       Duration.zero,
-      () => profileProvider.getFaq(),
+          () => profileProvider.getFaq(),
     );
     super.initState();
   }
@@ -39,70 +38,91 @@ class _FaqScreenState extends State<FaqScreen> {
         size: 50.0,
       ),
       child: Scaffold(
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.background,
         appBar: AppBar(
+          backgroundColor: AppColors.white,
+          elevation: 0,
           leading: const AppBarBack(),
-          title: const Text("FAQ"),
+          title: Text(
+            "FAQ",
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+              color: AppColors.bodyText,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         body: ListView.separated(
           itemCount: profileProvider.faqList.length,
           padding: const EdgeInsets.all(Amount.screenMargin),
           separatorBuilder: (context, index) => const HeightBox(10),
           itemBuilder: (context, index) {
-            return ExpansionTile(
-              expandedAlignment: Alignment.centerLeft,
-              collapsedIconColor: AppColors.stroke,
-              tilePadding: const EdgeInsets.only(
-                left: Amount.screenMargin,
-                right: Amount.screenMargin,
+            final faqItem = profileProvider.faqList[index];
+            return Card(
+              elevation: 3,
+              margin: EdgeInsets.zero,
+              shape: RoundedRectangleBorder(
+                borderRadius: AppBorderRadius.k12,
               ),
-              childrenPadding: const EdgeInsets.only(
-                left: Amount.screenMargin,
-                right: Amount.screenMargin,
-                bottom: 10,
-              ),
-              shape: const RoundedRectangleBorder(
-                borderRadius: AppBorderRadius.k08,
-                side: BorderSide(
-                  color: AppColors.stroke,
-                ),
-              ),
-              collapsedShape: const RoundedRectangleBorder(
-                borderRadius: AppBorderRadius.k08,
-                side: BorderSide(
-                  color: AppColors.stroke,
-                ),
-              ),
-              title: Text(
-                profileProvider.faqList[index].question!,
-                maxLines: _maxLines ? 5 : 1,
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: AppColors.bodyText,
-                      fontWeight: FontWeight.w600,
+              child: ClipRRect(
+                borderRadius: AppBorderRadius.k12,
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    dividerColor: AppColors.transparent,
+                  ),
+                  child: ExpansionTile(
+                    tilePadding: const EdgeInsets.symmetric(
+                      horizontal: Amount.screenMargin,
+                      vertical: 4,
                     ),
-              ),
-              onExpansionChanged: (value) {
-                if (value == true) {
-                  setState(
-                    () => _maxLines = value,
-                  );
-                } else {
-                  setState(
-                    () => _maxLines = false,
-                  );
-                }
-              },
-              children: <Widget>[
-                Text(
-                  profileProvider.faqList[index].answer!,
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: AppColors.bodyText,
-                        fontWeight: FontWeight.w500,
+                    expandedCrossAxisAlignment: CrossAxisAlignment.start,
+                    collapsedIconColor: AppColors.subText,
+                    iconColor: AppColors.primary,
+                    collapsedBackgroundColor: AppColors.white,
+                    backgroundColor: AppColors.white,
+
+                    // Custom builder to change color on expansion
+                    title: Builder(
+                      builder: (context) {
+                        final isExpanded = ExpansionTileController.of(context).isExpanded;
+                        return Container(
+                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          decoration: BoxDecoration(
+                            color: isExpanded ? AppColors.primary50 : AppColors.white,
+                            borderRadius: AppBorderRadius.k08,
+                          ),
+                          child: Text(
+                            faqItem.question!,
+                            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                              color: isExpanded ? AppColors.primary : AppColors.bodyText,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: Amount.screenMargin,
+                          right: Amount.screenMargin,
+                          bottom: Amount.screenMargin,
+                          top: 8,
+                        ),
+                        child: Text(
+                          faqItem.answer!,
+                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: AppColors.subText,
+                            fontWeight: FontWeight.w400,
+                            height: 1.5,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
                       ),
-                  maxLines: 50,
-                  textAlign: TextAlign.left,
+                    ],
+                  ),
                 ),
-              ],
+              ),
             );
           },
         ),

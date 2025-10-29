@@ -88,6 +88,7 @@ class _AddCarScreenState extends State<AddCarScreen> {
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<VehicalBrandName>(
+                        dropdownColor: AppColors.white,
                         icon: const Icon(Icons.keyboard_arrow_down_sharp),
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               color: AppColors.bodyText,
@@ -152,6 +153,7 @@ class _AddCarScreenState extends State<AddCarScreen> {
                     ),
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<VehicleModelsResponseData>(
+                        dropdownColor: AppColors.white,
                         icon: const Icon(Icons.keyboard_arrow_down_sharp),
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               color: AppColors.bodyText,

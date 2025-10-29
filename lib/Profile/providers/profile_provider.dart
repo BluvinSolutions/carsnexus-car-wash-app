@@ -25,6 +25,8 @@ import 'package:image_picker/image_picker.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart' as p;
 
+import '../../Theme/colors.dart';
+
 class ProfileProvider extends ChangeNotifier {
   bool bookingLoading = false;
   bool bookingDetailsLoading = false;
@@ -307,7 +309,7 @@ class ProfileProvider extends ChangeNotifier {
       );
     } else if (Platform.isAndroid) {
       return showModalBottomSheet(
-        context: context,
+        context: context, backgroundColor: AppColors.white,
         builder: (context) => Column(
           mainAxisSize: MainAxisSize.min,
           children: [

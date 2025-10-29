@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         LangConst.searchFieldLabelText,
                       )}",
-                      labelStyle: Theme.of(context).textTheme.bodyLarge,
+                      labelStyle: GoogleFonts.inter(color: AppColors.subText, fontSize: 14, fontWeight: FontWeight.w400),
                       suffixIcon: searchController.text.isNotEmpty
                           ? GestureDetector(
                         onTap: () {
