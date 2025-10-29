@@ -233,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
                   crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 2.0,
+                  mainAxisSpacing: 4.0,
                   childAspectRatio:
                       (orientation == Orientation.portrait) ? 0.7 : 1,
                 ),
@@ -289,9 +289,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             maxLines: 2,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.inter(
-                              color: AppColors.bodyText,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
+                              color: AppColors.subText,
+                              fontSize: 12,
+                              fontWeight: FontWeight.normal,
                             ),
                           ),
                         ),
@@ -323,8 +323,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                     ),
-
-              ///Popular Service Center
         ///Popular Service Center
         searchController.text.isNotEmpty
             ? const SizedBox()
@@ -482,7 +480,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           GoogleFonts.inter(
                           color: AppColors.subText,
                           fontSize: 14,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.normal,
                         ),
                         ),
                         style: ButtonStyle(
