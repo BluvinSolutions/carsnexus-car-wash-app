@@ -272,8 +272,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10), // for soft corners
                           child: Container(
-                            width: 70,
-                            height: 70,
+                            width: 65,
+                            height: 65,
                             color: AppColors.primary.withAlpha(50),
                             child: CachedNetworkImage(
                               imageUrl: service.imageUri!,
