@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:voyzo/Constants/keys_values.dart';
 import 'package:voyzo/Constants/preference_utility.dart';
 import 'package:voyzo/HomeAndOrder/model/home_screen_response.dart';
@@ -89,22 +90,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                SharedPreferenceUtil.getString(PrefKey.fullName),
-                style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                      color: AppColors.accent,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              Text(
-                getTranslated(context, LangConst.welcomeToApp).toString(),
-                style: Theme.of(context).textTheme.bodySmall,
-              )
-            ],
+          title: Text(
+            "${getTranslated(context, LangConst.welcomeToApp)}, ${SharedPreferenceUtil.getString(PrefKey.fullName)}!! 👋",
+            style: GoogleFonts.roboto(
+              fontWeight: FontWeight.w500,
+              fontSize: 22,
+              color: AppColors.accent,
+            ),
+            overflow: TextOverflow.ellipsis,
           ),
           centerTitle: false,
         ),
@@ -121,34 +114,63 @@ class _HomeScreenState extends State<HomeScreen> {
                   left: Amount.screenMargin,
                   right: Amount.screenMargin,
                 ),
-                child: TextFormField(
-                  controller: searchController,
-                  onChanged: (value) {
-                    shopServicesProvider.onSearchTextChanged(value);
-                  },
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(
-                      Icons.search,
-                      color: AppColors.icon,
-                    ),
-                    labelText: "${getTranslated(
-                      context,
-                      LangConst.searchFieldLabelText,
-                    )}",
-                    labelStyle: Theme.of(context).textTheme.bodyLarge,
-                    suffixIcon: searchController.text.isNotEmpty
-                        ? GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                searchController.clear();
-                              });
-                            },
-                            child: const Icon(Icons.clear),
-                          )
-                        : const SizedBox(),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.white,
+                    borderRadius: BorderRadius.circular(30.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 1,
+                        blurRadius: 5,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: TextFormField(
+                    controller: searchController,
+                    onChanged: (value) {
+                      shopServicesProvider.onSearchTextChanged(value);
+                    },
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: AppColors.icon,
+                      ),
+                      labelText: "${getTranslated(
+                        context,
+                        LangConst.searchFieldLabelText,
+                      )}",
+                      labelStyle: Theme.of(context).textTheme.bodyLarge,
+                      suffixIcon: searchController.text.isNotEmpty
+                          ? GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            searchController.clear();
+                          });
+                        },
+                        child: const Icon(Icons.clear),
+                      )
+                          : const SizedBox(),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide: BorderSide.none,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide: BorderSide.none,
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+                      filled: true,
+                      fillColor: Colors.transparent)
                   ),
                 ),
               ),
+              const SizedBox(height: 16),
 
               ///service text
               Padding(
@@ -161,11 +183,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Text(
                       getTranslated(context, LangConst.services).toString(),
-                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                            color: AppColors.accent,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      style: GoogleFonts.roboto(
+                        color: AppColors.accent,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Directionality(
                       textDirection: TextDirection.rtl,
@@ -179,17 +201,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           );
                         },
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          color: AppColors.primary,
-                          size: 20,
-                        ),
                         label: Text(
                           getTranslated(context, LangConst.seeMore).toString(),
                           style:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    color: AppColors.primary,
-                                  ),
+                          GoogleFonts.inter(
+                            color: AppColors.subText,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                         style: ButtonStyle(
                           padding: WidgetStateProperty.all(EdgeInsets.zero),
@@ -199,6 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
+              const SizedBox(height: 16),
 
               ///service List
               GridView.builder(
@@ -213,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
                   crossAxisSpacing: 4.0,
-                  mainAxisSpacing: 4.0,
+                  mainAxisSpacing: 2.0,
                   childAspectRatio:
                       (orientation == Orientation.portrait) ? 0.7 : 1,
                 ),
@@ -242,24 +262,37 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          radius: 30,
-                          backgroundColor: AppColors.primary.withAlpha(50),
-                          backgroundImage: CachedNetworkImageProvider(
-                            service.imageUri!,
+                        // CircleAvatar(
+                        //   radius: 30,
+                        //   backgroundColor: AppColors.primary.withAlpha(50),
+                        //   backgroundImage: CachedNetworkImageProvider(
+                        //     service.imageUri!,
+                        //   ),
+                        // ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10), // for soft corners
+                          child: Container(
+                            width: 70,
+                            height: 70,
+                            color: AppColors.primary.withAlpha(50),
+                            child: CachedNetworkImage(
+                              imageUrl: service.imageUri!,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
+
                         const HeightBox(8),
                         Expanded(
                           child: Text(
                             service.name!,
                             maxLines: 2,
                             textAlign: TextAlign.center,
-                            style:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      color: AppColors.bodyText,
-                                      fontSize: 14,
-                                    ),
+                            style: GoogleFonts.inter(
+                              color: AppColors.bodyText,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
@@ -267,7 +300,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
               ),
-              const HeightBox(16),
 
               ///Popular Service Centers text
               searchController.text.isNotEmpty
@@ -281,106 +313,142 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            getTranslated(
-                                    context, LangConst.popularServiceCenters)
-                                .toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall!
-                                .copyWith(
-                                  color: AppColors.accent,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            getTranslated(context, LangConst.popularServiceCenters).toString(),
+                            style: GoogleFonts.roboto(
+                              color: AppColors.accent,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ],
                       ),
                     ),
 
               ///Popular Service Center
-              searchController.text.isNotEmpty
-                  ? const SizedBox()
-                  : SizedBox(
-                      height: 200,
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: ListView.separated(
-                          controller: popularServiceCenter,
-                          separatorBuilder: (context, index) =>
-                              const WidthBox(15),
-                          itemCount:
-                              shopServicesProvider.popularServiceCenter.length,
-                          keyboardDismissBehavior:
-                              ScrollViewKeyboardDismissBehavior.onDrag,
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.only(
-                              left: Amount.screenMargin,
-                              top: Amount.screenMargin,
-                              right: Amount.screenMargin),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            PopularServices data = shopServicesProvider
-                                .popularServiceCenter[index];
-                            return InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => ShopDetailsScreen(
-                                      id: data.id!,
-                                    ),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: AppBorderRadius.k10,
-                                  color: AppColors.primary.withAlpha(50),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10),
-                                      ),
-                                      child: CachedNetworkImage(
-                                        imageUrl: data.imageUri!,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.8,
-                                        height: 140,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Center(
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.only(
-                                                  start: 10),
-                                          child: Text(
-                                            data.name!,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displaySmall!
-                                                .copyWith(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
+        ///Popular Service Center
+        searchController.text.isNotEmpty
+            ? const SizedBox()
+            : SizedBox(
+          height: 220, // Slightly increased height for the rating row
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: ListView.separated(
+              controller: popularServiceCenter,
+              separatorBuilder: (context, index) =>
+              const WidthBox(15),
+              itemCount:
+              shopServicesProvider.popularServiceCenter.length,
+              keyboardDismissBehavior:
+              ScrollViewKeyboardDismissBehavior.onDrag,
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(
+                  left: Amount.screenMargin,
+                  top: Amount.screenMargin,
+                  right: Amount.screenMargin
+              ),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                PopularServices data = shopServicesProvider
+                    .popularServiceCenter[index];
+                return InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ShopDetailsScreen(
+                          id: data.id!,
                         ),
                       ),
+                    );
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.7, // Set a specific width for the card
+                    margin: const EdgeInsets.only(bottom: 5.0, right: 2.0),
+                    decoration: BoxDecoration(
+                      borderRadius: AppBorderRadius.k10,
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.4),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: const Offset(3, 3),
+                        ),
+                      ],
                     ),
-
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Image with rounded top corners
+                        ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
+                          child: CachedNetworkImage(
+                            imageUrl: data.imageUri!,
+                            width: double.infinity, // Max width of the container
+                            height: 120, // Maintain height
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        // Text Section
+                        Expanded(
+                          child: Padding(
+                            padding:
+                            const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  data.name!,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: GoogleFonts.roboto(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                ),
+                                ),
+                                const HeightBox(4),
+                                Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                      size: 16,
+                                    ),
+                                    const WidthBox(4),
+                                    Text(
+                                      data.avgRating ?? 'N/A',
+                                      style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        color: AppColors.subText
+                                      ),
+                                    ),
+                                    // Optional: You can add the review count here if available
+                                    // const WidthBox(8),
+                                    // Text(
+                                    //   '(${data.reviewCount ?? '0'})',
+                                    //   style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                    //     color: AppColors.subText,
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+              ),
+              const SizedBox(height: 16),
               ///Best Shops text
               Padding(
                 padding: const EdgeInsets.only(
@@ -390,11 +458,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Text(
                       getTranslated(context, LangConst.bestShops).toString(),
-                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                            color: AppColors.accent,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      style: GoogleFonts.roboto(
+                        color: AppColors.accent,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Directionality(
                       textDirection: TextDirection.rtl,
@@ -408,17 +476,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           );
                         },
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          color: AppColors.primary,
-                          size: 20,
-                        ),
                         label: Text(
                           getTranslated(context, LangConst.seeMore).toString(),
                           style:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    color: AppColors.primary,
-                                  ),
+                          GoogleFonts.inter(
+                          color: AppColors.subText,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
                         ),
                         style: ButtonStyle(
                           padding: WidgetStateProperty.all(EdgeInsets.zero),
@@ -428,31 +493,73 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
+              const SizedBox(height: 16),
 
               ///Best Shop List
+              // ListView.separated(
+              //   separatorBuilder: (context, index) => const HeightBox(15),
+              //   itemCount: searchController.text.isNotEmpty &&
+              //           shopServicesProvider.searchBestShops.isNotEmpty
+              //       ? shopServicesProvider.searchBestShops.length
+              //       : shopServicesProvider.bestShops.length > 4
+              //           ? 4
+              //           : shopServicesProvider.bestShops.length,
+              //   shrinkWrap: true,
+              //   padding: const EdgeInsets.only(
+              //       left: Amount.screenMargin, right: Amount.screenMargin),
+              //   physics: const NeverScrollableScrollPhysics(),
+              //   itemBuilder: (context, index) {
+              //     BestShops data = searchController.text.isNotEmpty &&
+              //             shopServicesProvider.searchBestShops.isNotEmpty
+              //         ? shopServicesProvider.searchBestShops[index]
+              //         : shopServicesProvider.bestShops[index];
+              //     return ShopListTileWidget(
+              //       items: data,
+              //     );
+              //   },
+              // )
               ListView.separated(
                 separatorBuilder: (context, index) => const HeightBox(15),
                 itemCount: searchController.text.isNotEmpty &&
-                        shopServicesProvider.searchBestShops.isNotEmpty
+                    shopServicesProvider.searchBestShops.isNotEmpty
                     ? shopServicesProvider.searchBestShops.length
                     : shopServicesProvider.bestShops.length > 4
-                        ? 4
-                        : shopServicesProvider.bestShops.length,
+                    ? 4
+                    : shopServicesProvider.bestShops.length,
                 shrinkWrap: true,
                 padding: const EdgeInsets.only(
                     left: Amount.screenMargin, right: Amount.screenMargin),
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   BestShops data = searchController.text.isNotEmpty &&
-                          shopServicesProvider.searchBestShops.isNotEmpty
+                      shopServicesProvider.searchBestShops.isNotEmpty
                       ? shopServicesProvider.searchBestShops[index]
                       : shopServicesProvider.bestShops[index];
-                  return ShopListTileWidget(
-                    items: data,
+
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 8.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 5,
+                          offset: const Offset(3, 5),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: ShopListTileWidget(
+                        items: data,
+                      ),
+                    ),
                   );
                 },
               )
-            ],
+        ],
           ),
         ),
       ),
