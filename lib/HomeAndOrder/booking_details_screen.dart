@@ -15,6 +15,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BookingDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> vehicle;
@@ -55,7 +56,36 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
     super.dispose();
   }
 
-  int _selectedCarIndex = 0;
+  // NOTE: Renamed to clearly reflect it selects an address index
+  int _selectedAddressIndex = 0;
+
+  // MARK: - Date and Time Picker Styles
+
+  InputDecoration _getInputDecoration(BuildContext context, String label) {
+    return InputDecoration(
+      labelText: label,
+      labelStyle: GoogleFonts.poppins(
+        color: AppColors.subText,
+        fontWeight: FontWeight.w500,
+        fontSize: 16,
+      ),
+      filled: true,
+      fillColor: const Color(0xffCED5E0).withOpacity(0.3), // Soft gray background
+      border: OutlineInputBorder(
+        borderRadius: AppBorderRadius.k12,
+        borderSide: BorderSide.none,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: AppBorderRadius.k12,
+        borderSide: BorderSide(color: const Color(0xffCED5E0).withOpacity(0.5), width: 1),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: AppBorderRadius.k12,
+        borderSide: const BorderSide(color: AppColors.primary, width: 2), // Primary focus
+      ),
+      contentPadding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,17 +98,28 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
         size: 50.0,
       ),
       child: Scaffold(
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.background, // Use background color
         appBar: AppBar(
+          backgroundColor: AppColors.white,
+          elevation: 1,
           leading: const AppBarBack(),
-          title:
-              Text(getTranslated(context, LangConst.bookingDetails).toString()),
+          title: Text(
+            getTranslated(context, LangConst.bookingDetails).toString(),
+            // **Updated: Poppins font, Accent color, Bold**
+            style: GoogleFonts.poppins(
+              color: AppColors.accent,
+              fontWeight: FontWeight.w700,
+              fontSize: 20,
+            ),
+          ),
+          centerTitle: false,
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(Amount.screenMargin),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // MARK: - Date Picker
               TextFormField(
                 controller: dateController,
                 readOnly: true,
@@ -92,21 +133,20 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                 onTap: () async {
                   DateTime? pickedDate = await showDatePicker(
                     context: context,
-                    initialDate: DateTime.now(),
+                    initialDate: DateTime.now().add(const Duration(hours: 1)),
                     firstDate: DateTime.now(),
                     lastDate: DateTime(2100),
                     builder: (context, child) {
                       return Theme(
                         data: Theme.of(context).copyWith(
                           colorScheme: const ColorScheme.light(
-                            primary: AppColors.primary,
-                            // header background color
+                            primary: AppColors.primary, // Header background color
+                            onPrimary: AppColors.white, // Header text color
                             surfaceTint: AppColors.white,
                           ),
                           textButtonTheme: TextButtonThemeData(
                             style: TextButton.styleFrom(
-                              foregroundColor:
-                                  AppColors.primary, // button text color
+                              foregroundColor: AppColors.primary, // Button text color
                             ),
                           ),
                         ),
@@ -116,62 +156,71 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                   );
 
                   if (pickedDate != null) {
-                    if (kDebugMode) {
-                      print(pickedDate);
-                    }
                     String formattedDate =
-                        DateFormat('yyyy-MM-dd').format(pickedDate);
-                    if (kDebugMode) {
-                      print(formattedDate);
-                    }
+                    DateFormat('yyyy-MM-dd').format(pickedDate);
                     setState(
-                      () {
-                        dateTime = pickedDate;
+                          () {
+                        // Ensure we retain the current time or default to a safe time if it was null
+                        dateTime = DateTime(
+                            pickedDate.year,
+                            pickedDate.month,
+                            pickedDate.day,
+                            dateTime?.hour ?? 10,
+                            dateTime?.minute ?? 0);
                         dateController.text = formattedDate;
                       },
                     );
-                  } else {}
+                  }
                 },
-                decoration: InputDecoration(
-                  labelText: getTranslated(context, LangConst.date).toString(),
+                decoration: _getInputDecoration(context, getTranslated(context, LangConst.date).toString()).copyWith(
                   suffixIcon: const Icon(
-                    Icons.calendar_month_sharp,
+                    Icons.calendar_today_rounded, // Modern calendar icon
                     size: 20,
-                    color: AppColors.icon,
+                    color: AppColors.primary, // Primary color for icon
                   ),
                 ),
+                style: GoogleFonts.poppins(
+                  color: AppColors.bodyText,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-              const HeightBox(15),
+              const HeightBox(20), // Increased spacing
+
+              // MARK: - Time Picker
               TextFormField(
                 controller: timeController,
                 readOnly: true,
                 keyboardType: TextInputType.name,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: AppColors.bodyText,
-                    ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please select date';
+                    return 'Please select time';
                   }
                   return null;
                 },
                 onTap: () async {
-                  final currentTime =
-                      DateTime.now().add(const Duration(hours: 1));
+                  TimeOfDay initialTime = TimeOfDay.now();
+                  if (dateController.text == DateFormat('yyyy-MM-dd').format(DateTime.now())) {
+                    // If picking today, set initial time one hour from now
+                    DateTime oneHourLater = DateTime.now().add(const Duration(hours: 1));
+                    initialTime = TimeOfDay.fromDateTime(oneHourLater);
+                  }
+
                   TimeOfDay? pickedTime = await showTimePicker(
-                    initialTime: TimeOfDay(
-                      hour: currentTime.hour,
-                      minute: currentTime.minute,
-                    ),
+                    initialTime: initialTime,
                     context: context,
                     builder: (BuildContext context, Widget? child) {
                       return Theme(
                         data: ThemeData.light().copyWith(
-                          colorScheme: ColorScheme.light(
-                            primary: Theme.of(context).colorScheme.primary,
-                            onPrimary: Colors.white,
-                            surface: Colors.white,
-                            onSurface: Colors.black,
+                          colorScheme: const ColorScheme.light(
+                            primary: AppColors.primary,
+                            onPrimary: AppColors.white,
+                            surface: AppColors.white,
+                            onSurface: AppColors.accent,
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              foregroundColor: AppColors.primary,
+                            ),
                           ),
                         ),
                         child: child!,
@@ -180,71 +229,69 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                   );
 
                   if (pickedTime != null) {
-                    if (kDebugMode) {
-                      print(DateTime.now());
-                      print(currentTime);
-                      print(pickedTime);
-                    }
-                    bool res = currentTime.isAfter(DateTime.now());
-                    if (kDebugMode) {
-                      print(res);
-                    }
-                    if (pickedTime != currentTime && res == true) {
-                      setState(
-                        () {
-                          dateTime = dateTime!.toLocal();
-                          dateTime = DateTime(
-                            dateTime!.year,
-                            dateTime!.month,
-                            dateTime!.day,
-                            pickedTime.hour,
-                            pickedTime.minute,
-                          );
-                          timeController.text = pickedTime
-                              .format(context); //set the value of text field.
-                        },
-                      );
+                    // 1. Create a DateTime object combining selected date and picked time
+                    DateTime selectedDateTime = DateTime(
+                      dateTime!.year,
+                      dateTime!.month,
+                      dateTime!.day,
+                      pickedTime.hour,
+                      pickedTime.minute,
+                    );
+
+                    // 2. Check if the selected time is at least 1 hour later than current time if today is selected
+                    if (selectedDateTime.isBefore(DateTime.now().add(const Duration(hours: 1))) && dateController.text == DateFormat('yyyy-MM-dd').format(DateTime.now())) {
+                      Fluttertoast.showToast(msg:'Please select a time at least 1 hour from the current time.', backgroundColor: AppColors.primary, textColor: AppColors.white);
                     } else {
-                      Fluttertoast.showToast(
-                          msg:
-                              'Please Select a Time 1 hour Later From Current Time');
+                      setState(() {
+                        dateTime = selectedDateTime;
+                        timeController.text = pickedTime.format(context);
+                      });
                     }
-                  } else {}
+                  }
                 },
-                decoration: InputDecoration(
-                  labelText: getTranslated(context, LangConst.time).toString(),
+                decoration: _getInputDecoration(context, getTranslated(context, LangConst.time).toString()).copyWith(
                   suffixIcon: const Icon(
-                    Icons.calendar_month_sharp,
+                    Icons.access_time_filled_rounded, // Modern time icon
                     size: 20,
-                    color: AppColors.icon,
+                    color: AppColors.primary,
                   ),
                 ),
+                style: GoogleFonts.poppins(
+                  color: AppColors.bodyText,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-              const HeightBox(15),
+              const HeightBox(30), // Increased spacing before Address
+
+              // MARK: - Select Address Title
               Text(
                 getTranslated(context, LangConst.selectAddress).toString(),
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                style: GoogleFonts.poppins(
+                  color: AppColors.accent,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 22, // Larger title
+                ),
               ),
+
+              // MARK: - Address List
               ListView.separated(
                 itemCount: homeScreenProvider.addressList.length,
                 shrinkWrap: true,
                 padding: const EdgeInsets.only(top: Amount.screenMargin),
                 physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) => const HeightBox(10),
+                separatorBuilder: (context, index) => const HeightBox(15), // Increased separation
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
                       setState(
-                        () {
-                          _selectedCarIndex = index;
+                            () {
+                          _selectedAddressIndex = index;
                         },
                       );
                     },
+                    // NOTE: AddressListTile needs to be updated separately
                     child: AddressListTile(
-                      isSelected: _selectedCarIndex == index,
+                      isSelected: _selectedAddressIndex == index,
                       address: homeScreenProvider.addressList[index],
                     ),
                   );
@@ -253,94 +300,121 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
             ],
           ),
         ),
+
+        // MARK: - Floating Action Button (Add Address)
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => const AddAddressScreen(),
               ),
-            );
+            ).then((_) {
+              // Reload addresses after returning from AddAddressScreen
+              homeScreenProvider.showAddress();
+            });
           },
-          shape: const RoundedRectangleBorder(
-            borderRadius: AppBorderRadius.k16,
+          // **Circular, Primary-colored FAB**
+          shape: const CircleBorder(),
+          backgroundColor: AppColors.primary,
+          elevation: 8,
+          child: const Icon(
+            Icons.add,
+            color: AppColors.white,
+            size: 28,
           ),
-          child: const Icon(Icons.add),
         ),
+
+        // MARK: - Bottom Navigation Bar / Call to Action (Next)
         bottomNavigationBar: Container(
           padding: const EdgeInsets.only(
             left: Amount.screenMargin,
             right: Amount.screenMargin,
             bottom: Amount.screenMargin,
+            top: 8,
+          ),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.primary.withOpacity(0.15),
+                blurRadius: 10,
+                offset: const Offset(0, -5),
+              ),
+            ],
           ),
           child: ElevatedButton(
-            onPressed: () {
-              if (dateTime != null) {
-                if (timeController.text.isNotEmpty) {
-                  if (kDebugMode) {
-                    print(dateTime!);
-                  }
-
-                  final int durationDiff = widget.vehicle['duration'];
-                  final DateTime duration =
-                      dateTime!.add(Duration(minutes: durationDiff));
-                  if (kDebugMode) {
-                    print(duration);
-                  }
-                  final String displayStartTime =
-                      DateFormat('hh:mm a').format(dateTime!);
-                  final String displayEndTime =
-                      DateFormat('hh:mm a').format(duration);
-                  final String startTime =
-                      DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime!);
-                  final String endTime =
-                      DateFormat('yyyy-MM-dd HH:mm:ss').format(duration);
-                  Map<String, dynamic> details = {
-                    'name': widget.vehicle['name'],
-                    'reg-num': widget.vehicle['reg-num'],
-                    'color': widget.vehicle['color'],
-                    'shop_id': widget.vehicle['shop_id'],
-                    'owner_id': widget.vehicle['owner_id'],
-                    'service': widget.vehicle['service'],
-                    'vehicle_id': widget.vehicle['vehicle_id'],
-                    'serviceName': widget.vehicle['serviceName'],
-                    'isPackage': widget.vehicle['isPackage'],
-                    'isServicePackage': widget.vehicle['isServicePackage'],
-                    'startTime': displayStartTime,
-                    'endTime': displayEndTime,
-                    'start_time': startTime,
-                    'end_time': endTime,
-                    'bookingDate': dateController.text,
-                    'amount': widget.vehicle['amount'],
-                    'currency': widget.vehicle['currency'],
-                    'length': widget.vehicle['length'],
-                    'address': homeScreenProvider
-                        .addressList[_selectedCarIndex].line1!,
-                  };
-
-                  if (kDebugMode) {
-                    print(widget.serviceName);
-                  }
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ServiceDetailsScreen(
-                        details: details,
-                        serviceName: widget.serviceName,
-                      ),
-                    ),
-                  );
-                } else {
-                  Fluttertoast.showToast(msg: 'Please Select Time');
-                }
-              } else {
-                Fluttertoast.showToast(msg: 'Please Select Date & Time');
+            onPressed: homeScreenProvider.addressList.isEmpty || dateController.text.isEmpty || timeController.text.isEmpty
+                ? null // Disable if required fields are empty
+                : () {
+              // Check time consistency one last time
+              if (dateTime!.isBefore(DateTime.now().add(const Duration(hours: 1)))) {
+                Fluttertoast.showToast(msg: 'Please select a time at least 1 hour from the current time.', backgroundColor: AppColors.primary, textColor: AppColors.white);
+                return;
               }
+
+              final int durationDiff = widget.vehicle['duration'];
+              final DateTime duration = dateTime!.add(Duration(minutes: durationDiff));
+
+              final String displayStartTime = DateFormat('hh:mm a').format(dateTime!);
+              final String displayEndTime = DateFormat('hh:mm a').format(duration);
+              final String startTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(dateTime!);
+              final String endTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(duration);
+
+              Map<String, dynamic> details = {
+                'name': widget.vehicle['name'],
+                'reg-num': widget.vehicle['reg-num'],
+                'color': widget.vehicle['color'],
+                'shop_id': widget.vehicle['shop_id'],
+                'owner_id': widget.vehicle['owner_id'],
+                'service': widget.vehicle['service'],
+                'vehicle_id': widget.vehicle['vehicle_id'],
+                'serviceName': widget.vehicle['serviceName'],
+                'isPackage': widget.vehicle['isPackage'],
+                'isServicePackage': widget.vehicle['isServicePackage'],
+                'startTime': displayStartTime,
+                'endTime': displayEndTime,
+                'start_time': startTime,
+                'end_time': endTime,
+                'bookingDate': dateController.text,
+                'amount': widget.vehicle['amount'],
+                'currency': widget.vehicle['currency'],
+                'length': widget.vehicle['length'],
+                'address': homeScreenProvider.addressList[_selectedAddressIndex].line1!,
+              };
+
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ServiceDetailsScreen(
+                    details: details,
+                    serviceName: widget.serviceName,
+                  ),
+                ),
+              );
             },
-            style: AppButtonStyle.filledLarge,
+            // **Pill-shaped, bold, full-width button**
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              elevation: 8,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              minimumSize: Size(
+                MediaQuery.of(context).size.width,
+                55,
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              // Disable styling
+              disabledBackgroundColor: const Color(0xffCED5E0).withOpacity(0.5),
+              disabledForegroundColor: AppColors.subText.withOpacity(0.5),
+            ),
             child: Text(
               getTranslated(context, LangConst.next).toString(),
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: AppColors.white,
-                  ),
+              // **Updated: Poppins font, White color, Extra bold**
+              style: GoogleFonts.poppins(
+                color: AppColors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
         ),

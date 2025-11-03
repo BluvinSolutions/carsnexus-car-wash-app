@@ -14,6 +14,7 @@ import 'package:voyzo/Widgets/constant_widget.dart';
 import 'package:voyzo/lang_const.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart'; // Import Google Fonts
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({super.key});
@@ -23,6 +24,7 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
+  // MARK: - Updated Drawer Tile Builder
   Widget _buildDrawerTile({
     required BuildContext context,
     required String titleKey,
@@ -36,14 +38,15 @@ class _CustomDrawerState extends State<CustomDrawer> {
           MaterialPageRoute(builder: (context) => destination),
         );
       },
-
+      // Consistent radii for all interactive elements
       shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.k12),
-      selectedTileColor: AppColors.primary50,
+      // Enhanced selected/hover colors
+      selectedTileColor: AppColors.primary.withOpacity(0.1),
       tileColor: AppColors.transparent,
-      hoverColor: AppColors.primary50.withOpacity(0.5),
+      hoverColor: AppColors.primary.withOpacity(0.05),
       leading: Icon(
         icon,
-        size: 22,
+        size: 24, // Slightly larger icon
         color: AppColors.primary,
       ),
       contentPadding: const EdgeInsets.symmetric(
@@ -59,20 +62,22 @@ class _CustomDrawerState extends State<CustomDrawer> {
       ),
       title: Text(
         getTranslated(context, titleKey).toString(),
-        style: Theme.of(context).textTheme.titleMedium!.copyWith(
-          fontWeight: FontWeight.w500,
-          color: AppColors.bodyText,
+        // **Updated: Poppins font, Stronger weight**
+        style: GoogleFonts.poppins(
+          fontWeight: FontWeight.w600,
+          fontSize: 16,
+          color: AppColors.accent,
         ),
       ),
     );
   }
 
-
+  // MARK: - Updated Logout Tile Builder
   Widget _buildLogoutTile(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Amount.screenMargin, vertical: 16),
       child: Material(
-        color: Colors.red.withOpacity(0.1),
+        color: const Color(0xffCED5E0).withOpacity(0.1),
         borderRadius: AppBorderRadius.k12,
         child: InkWell(
           borderRadius: AppBorderRadius.k12,
@@ -81,10 +86,16 @@ class _CustomDrawerState extends State<CustomDrawer> {
               context: context,
               builder: (context) {
                 return AlertDialog(
+                  // Consistent background and surface color
                   surfaceTintColor: AppColors.white,
                   backgroundColor: AppColors.white,
                   title: Text(
                     getTranslated(context, LangConst.logout).toString(),
+                    style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.accent,
+                        fontSize: 20
+                    ),
                   ),
                   content: Text(
                     getTranslated(
@@ -92,19 +103,29 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         .toString(),
                     maxLines: 2,
                     textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      color: AppColors.bodyText,
+                    ),
                   ),
                   actions: [
+                    // Cancel Button: secondary style
                     ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.stroke,
+                        backgroundColor: const Color(0xffCED5E0),
+                        shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.k10),
                       ),
                       child: Text(
                         getTranslated(context, LangConst.cancel).toString(),
+                        style: GoogleFonts.poppins(
+                            color: AppColors.bodyText,
+                            fontWeight: FontWeight.w600
+                        ),
                       ),
                     ),
+                    // Logout Button: destructive primary style
                     ElevatedButton(
                       onPressed: () async {
                         String languageCode = SharedPreferenceUtil.getString(
@@ -118,10 +139,15 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             PrefKey.currentLanguageCode, languageCode);
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFFF4D4F),
+                        backgroundColor: const Color(0xffCED5E0),
+                        shape: const RoundedRectangleBorder(borderRadius: AppBorderRadius.k10),
                       ),
                       child: Text(
                         getTranslated(context, LangConst.logout).toString(),
+                        style: GoogleFonts.poppins(
+                            color: AppColors.bodyText,
+                            fontWeight: FontWeight.w700
+                        ),
                       ),
                     ),
                   ],
@@ -130,20 +156,21 @@ class _CustomDrawerState extends State<CustomDrawer> {
             );
           },
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: Amount.screenMargin, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: Amount.screenMargin, vertical: 14), // Increased vertical padding
             child: Row(
               children: [
                 const Icon(
                   Icons.logout_outlined,
-                  size: 22,
-                  color: Colors.red,
+                  size: 24,
+                  color: AppColors.primary,
                 ),
                 const WidthBox(16),
                 Text(
                   getTranslated(context, LangConst.logout).toString(),
-                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.red,
+                  style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
+                    color: AppColors.bodyText,
                   ),
                 ),
               ],
@@ -161,40 +188,64 @@ class _CustomDrawerState extends State<CustomDrawer> {
       backgroundColor: AppColors.white,
       child: Column(
         children: [
+          // MARK: - Redesigned Drawer Header
           Container(
             padding: const EdgeInsets.only(
-              top: 50,
+              top: 60, // Increased top padding for status bar space
               bottom: 24,
               left: Amount.screenMargin,
               right: Amount.screenMargin,
             ),
             width: double.infinity,
             decoration: const BoxDecoration(
-              color: AppColors.primary50,
+              // Using Primary color tint for a strong brand statement
+                color: AppColors.primary50,
+                // Added subtle bottom shadow for visual lift
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.primary50,
+                    offset: Offset(0, 4),
+                    blurRadius: 4,
+                  )
+                ]
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  radius: 35,
-                  backgroundColor: AppColors.primary,
-                  backgroundImage: CachedNetworkImageProvider(
-                    SharedPreferenceUtil.getString(PrefKey.profileImage),
+                // Profile Image with primary border/fallback
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: AppColors.primary, width: 3),
+                  ),
+                  child: CircleAvatar(
+                    radius: 38, // Slightly larger avatar
+                    backgroundColor: AppColors.white,
+                    backgroundImage: CachedNetworkImageProvider(
+                      SharedPreferenceUtil.getString(PrefKey.profileImage),
+                    ),
+                    child: SharedPreferenceUtil.getString(PrefKey.profileImage).isEmpty
+                        ? Icon(Icons.person, size: 40, color: AppColors.primary) // Fallback icon
+                        : null,
                   ),
                 ),
-                const HeightBox(12),
+                const HeightBox(16), // Increased spacing
                 Text(
                   SharedPreferenceUtil.getString(PrefKey.fullName),
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                    color: AppColors.bodyText,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,
+                  // **Updated: Poppins font, Accent color, Extra bold**
+                  style: GoogleFonts.poppins(
+                    color: AppColors.accent,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 24,
                   ),
                 ),
+                const HeightBox(2),
                 Text(
                   SharedPreferenceUtil.getString(PrefKey.email),
-                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                  // **Updated: Poppins font, Subtext color**
+                  style: GoogleFonts.poppins(
                     color: AppColors.subText,
+                    fontSize: 14,
                   ),
                 ),
               ],
@@ -203,6 +254,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
           const HeightBox(Amount.screenMargin),
 
+          // MARK: - Navigation List
           Expanded(
             child: ListView(
               padding: EdgeInsets.zero,
@@ -216,31 +268,34 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 _buildDrawerTile(
                   context: context,
                   titleKey: LangConst.notification,
-                  icon: Icons.notifications,
+                  icon: Icons.notifications_active_rounded,
                   destination: const NotificationScreen(),
                 ),
                 _buildDrawerTile(
                   context: context,
                   titleKey: LangConst.settings,
-                  icon: Icons.settings,
+                  icon: Icons.settings_rounded,
                   destination: const SettingScreen(),
                 ),
+                // Separator before policy/FAQ for logical grouping
+                const Divider(height: 1, indent: Amount.screenMargin, endIndent: Amount.screenMargin, color: const Color(0xffCED5E0)),
                 _buildDrawerTile(
                   context: context,
                   titleKey: LangConst.privacyPolicy,
-                  icon: CupertinoIcons.doc_chart_fill,
+                  icon: Icons.policy_rounded,
                   destination: const PrivacyPolicyScreen(),
                 ),
                 _buildDrawerTile(
                   context: context,
                   titleKey: LangConst.faq,
-                  icon: CupertinoIcons.bubble_left_fill,
+                  icon: Icons.help_center_rounded,
                   destination: const FaqScreen(),
                 ),
               ],
             ),
           ),
 
+          // MARK: - Logout Section
           _buildLogoutTile(context),
         ],
       ),

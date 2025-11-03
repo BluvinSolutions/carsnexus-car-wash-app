@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart'; // Import Google Fonts
 
 class ServiceDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> details;
@@ -37,6 +38,75 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
     super.initState();
   }
 
+  // MARK: - Helper Widgets for Design
+
+  Widget _buildDetailCard({required Widget child}) {
+    return Container(
+      padding: const EdgeInsets.all(Amount.screenMargin),
+      margin: const EdgeInsets.only(bottom: Amount.screenMargin),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: AppBorderRadius.k16,
+        border: Border.all(
+          color: const Color(0xffCED5E0).withOpacity(0.5),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.subText.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: child,
+    );
+  }
+
+  Widget _buildDetailItem(BuildContext context, String title, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.poppins(
+              color: AppColors.subText,
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const HeightBox(4),
+          Text(
+            value,
+            style: GoogleFonts.poppins(
+              color: AppColors.accent,
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+            ),
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(BuildContext context, String title) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: Text(
+        title,
+        style: GoogleFonts.poppins(
+          color: AppColors.accent,
+          fontWeight: FontWeight.w700,
+          fontSize: 22,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     shopServicesProvider = Provider.of<ShopServicesProvider>(context);
@@ -48,103 +118,56 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
         size: 50.0,
       ),
       child: Scaffold(
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.background,
         appBar: AppBar(
+          backgroundColor: AppColors.white,
+          elevation: 1,
           leading: const AppBarBack(),
-          title:
-              Text(getTranslated(context, LangConst.serviceDetails).toString()),
+          title: Text(
+            getTranslated(context, LangConst.serviceDetails).toString(),
+            style: GoogleFonts.poppins(
+              color: AppColors.accent,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+          centerTitle: false,
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(Amount.screenMargin),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ///vehicle details
-              Text(
-                getTranslated(context, LangConst.vehicleType).toString(),
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-              ),
-              const HeightBox(8),
-              Container(
-                padding: const EdgeInsets.all(Amount.screenMargin),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: AppBorderRadius.k16,
-                  border: Border.all(
-                    color: AppColors.stroke,
-                  ),
-                ),
+              // MARK: - Vehicle Details
+              _buildSectionTitle(
+                  context, getTranslated(context, LangConst.vehicleType).toString()),
+              _buildDetailCard(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          widget.details['name'],
-                          style:
-                              Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: AppColors.bodyText,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        ),
-                      ],
+                    Text(
+                      widget.details['name'],
+                      style: GoogleFonts.poppins(
+                        color: AppColors.primary,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 20,
+                      ),
                     ),
+                    const HeightBox(12),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                getTranslated(context, LangConst.registeredNum)
-                                    .toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      color: AppColors.subText,
-                                    ),
-                              ),
-                              Text(
-                                widget.details['reg-num'],
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      color: AppColors.bodyText,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                            ],
+                          child: _buildDetailItem(
+                            context,
+                            getTranslated(context, LangConst.registeredNum).toString(),
+                            widget.details['reg-num'],
                           ),
                         ),
                         Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                getTranslated(context, LangConst.color)
-                                    .toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      color: AppColors.subText,
-                                    ),
-                              ),
-                              Text(
-                                widget.details['color'],
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      color: AppColors.bodyText,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                            ],
+                          child: _buildDetailItem(
+                            context,
+                            getTranslated(context, LangConst.color).toString(),
+                            widget.details['color'],
                           ),
                         ),
                       ],
@@ -152,26 +175,11 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                   ],
                 ),
               ),
-              const HeightBox(8),
 
-              ///booking details
-              Text(
-                getTranslated(context, LangConst.bookingDetails).toString(),
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-              ),
-              const HeightBox(8),
-              Container(
-                padding: const EdgeInsets.all(Amount.screenMargin),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: AppBorderRadius.k16,
-                  border: Border.all(
-                    color: AppColors.stroke,
-                  ),
-                ),
+              // MARK: - Booking Details
+              _buildSectionTitle(
+                  context, getTranslated(context, LangConst.bookingDetails).toString()),
+              _buildDetailCard(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -179,168 +187,99 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                getTranslated(context, LangConst.date)
-                                    .toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      color: AppColors.subText,
-                                    ),
-                              ),
-                              Text(
-                                widget.details['bookingDate'],
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      color: AppColors.bodyText,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                            ],
+                          child: _buildDetailItem(
+                            context,
+                            getTranslated(context, LangConst.date).toString(),
+                            widget.details['bookingDate'],
                           ),
                         ),
                         Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                getTranslated(context, LangConst.time)
-                                    .toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      color: AppColors.subText,
-                                    ),
-                              ),
-                              Text(
-                                '${widget.details['startTime']} To ${widget.details['endTime']}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      color: AppColors.bodyText,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                            ],
+                          child: _buildDetailItem(
+                            context,
+                            getTranslated(context, LangConst.time).toString(),
+                            '${widget.details['startTime']} - ${widget.details['endTime']}',
                           ),
                         ),
                       ],
                     ),
                     const HeightBox(8),
-                    Text(
+                    _buildDetailItem(
+                      context,
                       getTranslated(context, LangConst.address).toString(),
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: AppColors.subText,
-                          ),
-                    ),
-                    Text(
                       widget.details['address'],
-                      maxLines: 3,
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            color: AppColors.bodyText,
-                            fontWeight: FontWeight.w500,
-                          ),
                     ),
                   ],
                 ),
               ),
-              const HeightBox(8),
 
-              ///service Details
-              Text(
-                getTranslated(context, LangConst.serviceDetails).toString(),
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-              ),
-              const HeightBox(8),
-              Container(
-                padding: const EdgeInsets.all(Amount.screenMargin),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: AppBorderRadius.k16,
-                  border: Border.all(
-                    color: AppColors.stroke,
-                  ),
-                ),
+              // MARK: - Service Details
+              _buildSectionTitle(
+                  context, getTranslated(context, LangConst.serviceDetails).toString()),
+              _buildDetailCard(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
+                      flex: 2,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            getTranslated(context, LangConst.serviceName)
-                                .toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  color: AppColors.subText,
-                                ),
+                            getTranslated(context, LangConst.serviceName).toString(),
+                            style: GoogleFonts.poppins(
+                              color: AppColors.subText,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
+                          const HeightBox(4),
                           widget.details['isPackage'] ||
-                                  widget.details['isServicePackage']
+                              widget.details['isServicePackage']
                               ? ListView.builder(
-                                  itemCount: widget.serviceName!.length,
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) => Text(
-                                    widget.serviceName![index],
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          color: AppColors.bodyText,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                )
+                            itemCount: widget.serviceName!.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) => Text(
+                              '• ${widget.serviceName![index]}',
+                              style: GoogleFonts.poppins(
+                                color: AppColors.accent,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
+                            ),
+                          )
                               : Text(
-                                  widget.details['serviceName'],
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        color: AppColors.bodyText,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
+                            widget.details['serviceName'],
+                            style: GoogleFonts.poppins(
+                              color: AppColors.accent,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                            ),
+                          ),
                         ],
                       ),
                     ),
                     Expanded(
+                      flex: 1,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
                             getTranslated(context, LangConst.amount).toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  color: AppColors.subText,
-                                ),
+                            style: GoogleFonts.poppins(
+                              color: AppColors.subText,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
+                          const HeightBox(4),
                           Text(
                             '${widget.details['currency']}${widget.details['amount']}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  color: AppColors.primary,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: GoogleFonts.poppins(
+                              color: AppColors.primary,
+                              fontWeight: FontWeight.w800, // Extra bold for amount
+                              fontSize: 22,
+                            ),
                           ),
                         ],
                       ),
@@ -348,81 +287,53 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                   ],
                 ),
               ),
-              const HeightBox(8),
 
-              ///service Place
-              Text(
-                getTranslated(context, LangConst.servicePlace).toString(),
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-              ),
-              const HeightBox(8),
+              // MARK: - Service Place
+              _buildSectionTitle(
+                  context, getTranslated(context, LangConst.servicePlace).toString()),
               Row(
                 children: [
                   Expanded(
-                    child: RadioListTile(
-                      value: ServicePlace.serviceAtHome,
-                      contentPadding: EdgeInsets.zero,
-                      visualDensity:
-                          const VisualDensity(horizontal: -4, vertical: -4),
-                      title: Text(
-                        getTranslated(context, LangConst.serviceAtHome)
-                            .toString(),
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                              color: _service == ServicePlace.serviceAtHome
-                                  ? AppColors.bodyText
-                                  : AppColors.subText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ),
-                      groupValue: _service,
-                      onChanged: (ServicePlace? value) {
-                        setState(
-                          () {
-                            _service = value!;
-                          },
-                        );
-                      },
+                    child: _buildServicePlaceTile(
+                      context,
+                      ServicePlace.serviceAtHome,
+                      getTranslated(context, LangConst.serviceAtHome).toString(),
+                      Icons.home_work_rounded,
                     ),
                   ),
+                  const WidthBox(12),
                   Expanded(
-                    child: RadioListTile(
-                      contentPadding: EdgeInsets.zero,
-                      visualDensity:
-                          const VisualDensity(horizontal: -4, vertical: -4),
-                      title: Text(
-                        getTranslated(context, LangConst.serviceAtShop)
-                            .toString(),
-                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                              color: _service == ServicePlace.serviceAtShop
-                                  ? AppColors.bodyText
-                                  : AppColors.subText,
-                              fontWeight: FontWeight.w500,
-                            ),
-                      ),
-                      onChanged: (ServicePlace? value) {
-                        setState(
-                          () {
-                            _service = value!;
-                          },
-                        );
-                      },
-                      value: ServicePlace.serviceAtShop,
-                      groupValue: _service,
+                    child: _buildServicePlaceTile(
+                      context,
+                      ServicePlace.serviceAtShop,
+                      getTranslated(context, LangConst.serviceAtShop).toString(),
+                      Icons.store_mall_directory_rounded,
                     ),
                   ),
                 ],
-              )
+              ),
+              const HeightBox(20),
             ],
           ),
         ),
+
+        // MARK: - Bottom Button
         bottomNavigationBar: Container(
           padding: const EdgeInsets.only(
             left: Amount.screenMargin,
             right: Amount.screenMargin,
             bottom: Amount.screenMargin,
+            top: 8,
+          ),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.primary.withOpacity(0.15),
+                blurRadius: 10,
+                offset: const Offset(0, -5),
+              ),
+            ],
           ),
           child: ElevatedButton(
             onPressed: () {
@@ -448,17 +359,75 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
               shopServicesProvider.bookSlot(body);
               Future.delayed(
                 const Duration(seconds: 2),
-                () => Navigator.popAndPushNamed(context, Routes.home),
+                    () => Navigator.popAndPushNamed(context, Routes.home),
               );
             },
-            style: AppButtonStyle.filledLarge,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              elevation: 8,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              minimumSize: Size(
+                MediaQuery.of(context).size.width,
+                55,
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 12),
+            ),
             child: Text(
               getTranslated(context, LangConst.sendRequest).toString(),
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: AppColors.white,
-                  ),
+              style: GoogleFonts.poppins(
+                color: AppColors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w800,
+              ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  // MARK: - Custom Radio Tile for Service Place
+  Widget _buildServicePlaceTile(
+      BuildContext context, ServicePlace value, String title, IconData icon) {
+    bool isSelected = _service == value;
+    return InkWell(
+      onTap: () {
+        setState(() {
+          _service = value;
+        });
+      },
+      borderRadius: AppBorderRadius.k12,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: isSelected ? AppColors.primary.withOpacity(0.1) : const Color(0xffCED5E0).withOpacity(0.3),
+          borderRadius: AppBorderRadius.k12,
+          border: Border.all(
+            color: isSelected ? AppColors.primary : const Color(0xffCED5E0),
+            width: isSelected ? 2 : 1,
+          ),
+        ),
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? AppColors.primary : AppColors.accent,
+              size: 30,
+            ),
+            const HeightBox(8),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                color: isSelected ? AppColors.primary : AppColors.bodyText,
+                fontWeight: FontWeight.w700,
+                fontSize: 14,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -470,23 +439,24 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
       builder: (context) => AlertDialog(
         surfaceTintColor: AppColors.white,
         backgroundColor: AppColors.white,
-        shadowColor: AppColors.white,
         title: Text(
           "${getTranslated(context, LangConst.doneLabel)}",
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                color: AppColors.primary,
-              ),
+          style: GoogleFonts.poppins(
+            color: AppColors.primary,
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+          ),
         ),
         content: Text(
           "${getTranslated(context, LangConst.requestSubmittedPleaseAwaitApproval)}",
           maxLines: 2,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                color: AppColors.bodyText,
-                fontWeight: FontWeight.w500,
-                fontSize: 18,
-              ),
+          style: GoogleFonts.poppins(
+            color: AppColors.bodyText,
+            fontWeight: FontWeight.w300,
+            fontSize: 18,
+          ),
         ),
       ),
     );

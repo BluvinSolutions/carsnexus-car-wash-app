@@ -173,6 +173,7 @@ class AppBorderRadius {
   static const BorderRadius k12 = BorderRadius.all(
     Radius.circular(12),
   );
+  static const Radius k16Radius = Radius.circular(16.0);
 
   /// 16px All Corners
   static const BorderRadius k16 = BorderRadius.all(

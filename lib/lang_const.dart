@@ -55,7 +55,7 @@ class LangConst {
   static const String worksLabel = "works_label";
   static const String serviceAtShop = "service_at_shop";
   static const String viewServiceRequests = "view_service_requests";
-
+  static const String bookNow = "book_now";
   // profile
   static const String editProfile = "edit_profile";
   static const String notification = "notification";
@@ -131,6 +131,7 @@ class LangConst {
   static const String selectCarModel = "select_car_Model";
   static const String registeredNum = "registered_num";
   static const String addCar = "add_car";
+  static const String loading = 'loading';
   static const String next = "continue";
   static const String selectAddress = "select_address";
   static const String addAddress = "add_address";

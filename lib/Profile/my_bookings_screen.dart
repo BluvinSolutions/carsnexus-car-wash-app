@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyBookingsScreen extends StatefulWidget {
   const MyBookingsScreen({super.key});
@@ -38,6 +39,50 @@ class _MyBookingsScreenState extends State<MyBookingsScreen>
     super.dispose();
   }
 
+  // MARK: - Generic Booking List Builder with Empty State
+  Widget _buildBookingList(
+      List<dynamic> list, String status, String emptyMessage) {
+    if (list.isEmpty && !profileProvider.bookingLoading) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(Amount.screenMargin * 2),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(
+                Icons.event_note_rounded,
+                size: 60,
+                color: Color(0xffCED5E0),
+              ),
+              const HeightBox(16),
+              Text(
+                emptyMessage,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                  color: AppColors.subText,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+    return ListView.separated(
+      itemCount: list.length,
+      separatorBuilder: (context, index) => const HeightBox(12), // Increased spacing
+      shrinkWrap: true,
+      padding: const EdgeInsets.all(Amount.screenMargin),
+      itemBuilder: (context, index) {
+        // NOTE: BookingItems widget needs to be updated separately for consistency
+        return BookingItems(
+          status: status,
+          data: list[index],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     profileProvider = Provider.of<ProfileProvider>(context);
@@ -51,34 +96,57 @@ class _MyBookingsScreenState extends State<MyBookingsScreen>
           size: 50.0,
         ),
         child: Scaffold(
-          backgroundColor: AppColors.white,
+          backgroundColor: AppColors.background, // Use background color
           appBar: AppBar(
+            backgroundColor: AppColors.white,
+            elevation: 1,
             leading: const AppBarBack(),
-            title:
-                Text(getTranslated(context, LangConst.myBookings).toString()),
+            title: Text(
+              getTranslated(context, LangConst.myBookings).toString(),
+              // **Updated: Poppins font, Accent color, Bold**
+              style: GoogleFonts.poppins(
+                color: AppColors.accent,
+                fontWeight: FontWeight.w700,
+                fontSize: 20,
+              ),
+            ),
+            centerTitle: false,
+            // MARK: - Redesigned TabBar
             bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(40),
-              child: SizedBox(
-                height: 40,
+              preferredSize: const Size.fromHeight(50), // Slightly taller bar
+              child: Container(
+                color: AppColors.white,
                 child: TabBar(
                   controller: _tabController,
                   dividerColor: Colors.transparent,
                   tabAlignment: TabAlignment.start,
-                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: Amount.screenMargin), // Consistent screen padding
                   isScrollable: true,
                   indicatorPadding: EdgeInsets.zero,
+                  // Custom Indicator Style: Primary colored underline
+                  indicator: const UnderlineTabIndicator(
+                    borderSide: BorderSide(color: AppColors.primary, width: 3.0),
+                    insets: EdgeInsets.symmetric(horizontal: 0.0),
+                  ),
+                  labelColor: AppColors.primary, // Active tab text color
+                  unselectedLabelColor: AppColors.subText, // Inactive tab text color
+                  labelStyle: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15,
+                  ),
+                  unselectedLabelStyle: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 15,
+                  ),
                   tabs: [
                     Tab(
-                      text:
-                          getTranslated(context, LangConst.pending).toString(),
+                      text: getTranslated(context, LangConst.pending).toString(),
                     ),
                     Tab(
-                      text:
-                          getTranslated(context, LangConst.current).toString(),
+                      text: getTranslated(context, LangConst.current).toString(),
                     ),
                     Tab(
-                      text:
-                          getTranslated(context, LangConst.complete).toString(),
+                      text: getTranslated(context, LangConst.complete).toString(),
                     ),
                     Tab(
                       text: getTranslated(context, LangConst.cancel).toString(),
@@ -88,63 +156,29 @@ class _MyBookingsScreenState extends State<MyBookingsScreen>
               ),
             ),
           ),
+          // MARK: - TabBarView with Empty State handling
           body: TabBarView(
             controller: _tabController,
             children: [
-              ListView.separated(
-                itemCount: profileProvider.pendingList.isEmpty
-                    ? 0
-                    : profileProvider.pendingList.length,
-                separatorBuilder: (context, index) => const HeightBox(10),
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(Amount.screenMargin),
-                itemBuilder: (context, index) {
-                  if (profileProvider.pendingList.isEmpty) {
-                    return const Center(
-                      child: Text('There is No Booking.'),
-                    );
-                  }
-                  return BookingItems(
-                    status: "pending",
-                    data: profileProvider.pendingList[index],
-                  );
-                },
+              _buildBookingList(
+                profileProvider.pendingList,
+                "pending",
+                getTranslated(context, LangConst.noDataFound) ?? 'No pending bookings found.',
               ),
-              ListView.separated(
-                itemCount: profileProvider.currentList.length,
-                separatorBuilder: (context, index) => const HeightBox(10),
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(Amount.screenMargin),
-                itemBuilder: (context, index) {
-                  return BookingItems(
-                    status: "current",
-                    data: profileProvider.currentList[index],
-                  );
-                },
+              _buildBookingList(
+                profileProvider.currentList,
+                "current",
+                getTranslated(context, LangConst.noDataFound) ?? 'No current bookings found.',
               ),
-              ListView.separated(
-                itemCount: profileProvider.completeList.length,
-                separatorBuilder: (context, index) => const HeightBox(10),
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(Amount.screenMargin),
-                itemBuilder: (context, index) {
-                  return BookingItems(
-                    status: "Complete",
-                    data: profileProvider.completeList[index],
-                  );
-                },
+              _buildBookingList(
+                profileProvider.completeList,
+                "Complete",
+                getTranslated(context, LangConst.noDataFound) ?? 'No completed bookings found.',
               ),
-              ListView.separated(
-                itemCount: profileProvider.cancelList.length,
-                separatorBuilder: (context, index) => const HeightBox(10),
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(Amount.screenMargin),
-                itemBuilder: (context, index) {
-                  return BookingItems(
-                    status: "cancel",
-                    data: profileProvider.cancelList[index],
-                  );
-                },
+              _buildBookingList(
+                profileProvider.cancelList,
+                "cancel",
+                getTranslated(context, LangConst.noDataFound) ?? 'No cancelled bookings found.',
               ),
             ],
           ),

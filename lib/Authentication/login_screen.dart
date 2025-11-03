@@ -58,20 +58,25 @@ class _LoginScreenState extends State<LoginScreen> {
         size: 50.0,
       ),
       child: Scaffold(
-        backgroundColor: AppColors.white,
+        backgroundColor: AppColors.background, // Use background color for the entire screen
         body: SafeArea(
           child: SingleChildScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Column(
               children: [
-                Center(
-                  child: Container(
-                    color: AppColors.background,
-                    width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.only(top: 50, bottom: 50),
-                    child: Image.asset("assets/app/logo.png"),
+                // 1. LOGO HEADER (Using primary color accent)
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  // Use a slightly softer color for the logo background if AppColors.background is too white
+                  color: AppColors.primary50.withOpacity(0.5),
+                  padding: const EdgeInsets.symmetric(vertical: 50),
+                  child: Image.asset(
+                    "assets/app/logo.png",
+                    height: 120,
                   ),
                 ),
+
+                // 2. LOGIN FORM AREA
                 Container(
                   color: AppColors.white,
                   padding: const EdgeInsets.all(Amount.screenMargin),
@@ -80,26 +85,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const HeightBox(10),
+                        const HeightBox(20),
                         Text(
                           getTranslated(context, LangConst.loginNow).toString(),
                           style: Theme.of(context)
                               .textTheme
                               .displaySmall!
                               .copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                              ),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 32, // Slightly larger
+                            color: AppColors.bodyText,
+                          ),
                         ),
                         Text(
                           getTranslated(context, LangConst.letGetStarted)
                               .toString(),
-                          style:
-                              Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                    color: AppColors.subText,
-                                  ),
+                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: AppColors.subText,
+                            fontSize: 16,
+                          ),
                         ),
-                        const HeightBox(30),
+                        const HeightBox(40),
+
+                        // EMAIL FIELD
                         TextFormField(
                           focusNode: emailFocusNode,
                           controller: emailController,
@@ -111,18 +119,26 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                             return null;
                           },
+                          // Modern InputDecoration Styling
                           decoration: InputDecoration(
                             labelText:
-                                getTranslated(context, LangConst.emailAddress)
-                                    .toString(),
-                            filled: true,
+                            getTranslated(context, LangConst.emailAddress)
+                                .toString(),
                             floatingLabelBehavior: FloatingLabelBehavior.auto,
-                            fillColor: emailFocusNode.hasFocus
-                                ? AppColors.primary.withAlpha(40)
-                                : Colors.white,
+                            // Removed filled: true and fillColor for a cleaner look
+                            border: OutlineInputBorder(
+                              borderRadius: AppBorderRadius.k12,
+                              borderSide: const BorderSide(color: AppColors.stroke),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: AppBorderRadius.k12,
+                              borderSide: const BorderSide(color: AppColors.primary, width: 2), // Primary accent on focus
+                            ),
                           ),
                         ),
-                        const HeightBox(30),
+                        const HeightBox(20),
+
+                        // PASSWORD FIELD
                         TextFormField(
                           focusNode: passwordFocusNode,
                           controller: passwordController,
@@ -134,14 +150,20 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                             return null;
                           },
+                          // Modern InputDecoration Styling
                           decoration: InputDecoration(
                             labelText:
-                                getTranslated(context, LangConst.password)
-                                    .toString(),
-                            filled: true,
-                            fillColor: passwordFocusNode.hasFocus
-                                ? AppColors.primary.withAlpha(40)
-                                : Colors.white,
+                            getTranslated(context, LangConst.password)
+                                .toString(),
+                            // Removed filled: true and fillColor
+                            border: OutlineInputBorder(
+                              borderRadius: AppBorderRadius.k12,
+                              borderSide: const BorderSide(color: AppColors.stroke),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: AppBorderRadius.k12,
+                              borderSide: const BorderSide(color: AppColors.primary, width: 2), // Primary accent on focus
+                            ),
                             suffixIcon: InkWell(
                               onTap: () {
                                 setState(() {
@@ -152,10 +174,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                 _isObscureText
                                     ? Icons.visibility_off_outlined
                                     : Icons.visibility_outlined,
+                                color: AppColors.subText,
                               ),
                             ),
                           ),
                         ),
+
+                        // FORGOT PASSWORD
                         Align(
                           alignment: Alignment.topRight,
                           child: TextButton(
@@ -163,7 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      const ForgotPasswordScreen(),
+                                  const ForgotPasswordScreen(),
                                 ),
                               );
                             },
@@ -174,11 +199,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                   .textTheme
                                   .bodyMedium!
                                   .copyWith(
-                                    color: AppColors.primary,
-                                  ),
+                                color: AppColors.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),
+
+                        // LOGIN BUTTON
                         ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
@@ -194,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             minimumSize: WidgetStatePropertyAll(
                               Size(
                                 MediaQuery.of(context).size.width,
-                                50,
+                                55, // Slightly taller button
                               ),
                             ),
                           ),
@@ -203,38 +231,43 @@ class _LoginScreenState extends State<LoginScreen> {
                                 .toString(),
                             style: Theme.of(context)
                                 .textTheme
-                                .labelLarge!
+                                .titleMedium!
                                 .copyWith(
-                                  color: AppColors.white,
-                                ),
+                              color: AppColors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
+
                         const HeightBox(30),
+
+                        // SIGN UP LINK
                         Align(
                           alignment: Alignment.center,
                           child: RichText(
                             text: TextSpan(
                               text: getTranslated(
-                                      context, LangConst.dontHaveAccount)
+                                  context, LangConst.dontHaveAccount)
                                   .toString(),
-                              style: Theme.of(context).textTheme.bodyMedium,
+                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                color: AppColors.bodyText,
+                              ),
                               children: [
                                 TextSpan(
-                                  text: getTranslated(
-                                          context, LangConst.createAccount)
-                                      .toString(),
+                                  text: ' ${getTranslated(context, LangConst.createAccount).toString()}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium!
                                       .copyWith(
-                                        color: AppColors.primary,
-                                      ),
+                                    color: AppColors.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
                                       Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              const SignUpScreen(),
+                                          const SignUpScreen(),
                                         ),
                                       );
                                     },
@@ -243,6 +276,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
+                        const HeightBox(20),
                       ],
                     ),
                   ),
