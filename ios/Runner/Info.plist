@@ -6,6 +6,8 @@
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
 		<string>Voyzo</string>
+		    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+            <string>Your app needs your location to provide accurate result</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
