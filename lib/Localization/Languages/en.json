@@ -104,5 +104,11 @@
   "done_label": "Done!",
   "type_your_review_here": "Type Your Review Here...",
   "there_is_no_packages": "There is No Packages.",
-  "add_address": "Add Address"
+  "add_address": "Add Address",
+  "no_shops_in_area": "No shops in your area",
+  "increase_radius_hint": "Try increasing the radius using the location pin",
+  "tap_to_adjust": "Tap to adjust",
+  "searching_location": "Searching for your location...",
+  "enable_location_hint": "Make sure location services are enabled and permissions are granted."
+
 }

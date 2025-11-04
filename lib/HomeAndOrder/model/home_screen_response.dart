@@ -70,6 +70,55 @@ class Data {
   }
 }
 
+// class BestShops {
+//   String? name;
+//   int? id;
+//   String? image;
+//   String? address;
+//   String? imageUri;
+//   String? avgRating;
+//
+//   BestShops(
+//       {this.name,
+//       this.id,
+//       this.image,
+//       this.address,
+//       this.imageUri,
+//       this.avgRating});
+//
+//   BestShops.fromJson(Map<String, dynamic> json) {
+//     if (json["name"] is String) {
+//       name = json["name"];
+//     }
+//     if (json["id"] is int) {
+//       id = json["id"];
+//     }
+//     if (json["image"] is String) {
+//       image = json["image"];
+//     }
+//     if (json["address"] is String) {
+//       address = json["address"];
+//     }
+//     if (json["imageUri"] is String) {
+//       imageUri = json["imageUri"];
+//     }
+//     if (json["avg_rating"] is String) {
+//       avgRating = json["avg_rating"];
+//     }
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> map = <String, dynamic>{};
+//     map["name"] = name;
+//     map["id"] = id;
+//     map["image"] = image;
+//     map["address"] = address;
+//     map["imageUri"] = imageUri;
+//     map["avg_rating"] = avgRating;
+//     return map;
+//   }
+// }
+
 class BestShops {
   String? name;
   int? id;
@@ -78,43 +127,48 @@ class BestShops {
   String? imageUri;
   String? avgRating;
 
-  BestShops(
-      {this.name,
-      this.id,
-      this.image,
-      this.address,
-      this.imageUri,
-      this.avgRating});
+  // ADD THESE TWO FIELDS
+  double? latitude;
+  double? longitude;
+
+  BestShops({
+    this.name,
+    this.id,
+    this.image,
+    this.address,
+    this.imageUri,
+    this.avgRating,
+    this.latitude,
+    this.longitude,
+  });
 
   BestShops.fromJson(Map<String, dynamic> json) {
-    if (json["name"] is String) {
-      name = json["name"];
+    if (json["name"] is String) name = json["name"];
+    if (json["id"] is int) id = json["id"];
+    if (json["image"] is String) image = json["image"];
+    if (json["address"] is String) address = json["address"];
+    if (json["imageUri"] is String) imageUri = json["imageUri"];
+    if (json["avg_rating"] is String) avgRating = json["avg_rating"];
+
+    // ADD THESE LINES - Adjust keys if your API uses 'lat'/'lng'
+    if (json["latitude"] != null) {
+      latitude = (json["latitude"] is num) ? json["latitude"].toDouble() : null;
     }
-    if (json["id"] is int) {
-      id = json["id"];
-    }
-    if (json["image"] is String) {
-      image = json["image"];
-    }
-    if (json["address"] is String) {
-      address = json["address"];
-    }
-    if (json["imageUri"] is String) {
-      imageUri = json["imageUri"];
-    }
-    if (json["avg_rating"] is String) {
-      avgRating = json["avg_rating"];
+    if (json["longitude"] != null) {
+      longitude = (json["longitude"] is num) ? json["longitude"].toDouble() : null;
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> map = <String, dynamic>{};
+    final map = <String, dynamic>{};
     map["name"] = name;
     map["id"] = id;
     map["image"] = image;
     map["address"] = address;
     map["imageUri"] = imageUri;
     map["avg_rating"] = avgRating;
+    map["latitude"] = latitude;
+    map["longitude"] = longitude;
     return map;
   }
 }

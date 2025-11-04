@@ -151,4 +151,9 @@ class LangConst {
   static const String upcoming = "upcoming";
   static const String typeYourReviewHere = "type_your_review_here";
   static const String thereIsNoPackages = "there_is_no_packages";
+  static const String noShopsInArea = 'no_shops_in_area';
+  static const String increaseRadiusHint = 'increase_radius_hint';
+  static const String tapToAdjust = 'tap_to_adjust';
+  static const String searchingLocation = 'searching_location';
+  static const String enableLocationHint = 'enable_location_hint';
 }
