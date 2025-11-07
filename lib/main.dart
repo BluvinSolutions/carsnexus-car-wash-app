@@ -130,6 +130,7 @@ class _MyAppState extends State<MyApp> {
           initialRoute: SharedPreferenceUtil.getBool(PrefKey.isLoggedIn)
               ? Routes.home
               : Routes.login,
+          navigatorKey: navigatorKey,
         ),
       ),
     );
